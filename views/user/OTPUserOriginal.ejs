@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>OTP Verification Form</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Boxicons CSS -->
+    <link href="/css/userOTP.css" rel="stylesheet" />
+   <script src="/js/UserOTP.js" defer></script>
+  </head>
+  <body onload="startTimer()">
+    <div class="container">
+      <header>
+        <i class="bx bxs-check-shield"></i>
+      </header>
+      <h4>Enter OTP Code</h4>
+      <form action="/user/OTPUser" method="POST">
+        <div class="input-field">
+          <input type="number" name="digit1" />
+          <input type="number" name="digit2" disabled/>
+          <input type="number" name="digit3" disabled />
+          <input type="number" name="digit4" disabled />
+        </div>
+        <% if(typeof wrong !=='undefined' && wrong !==null) { %>
+          <div class="text-center" style="color: red;">
+            <%= wrong %>
+          </div>
+        <% } %>
+        <button>Verify OTP</button>
+      </form>
+
+      <button onclick="resetTimer()" id="resendButton" style="display: none;"disabled>Resend OTP</button>
+      <div id="timer">Resend OTP in <span id="countdown">5</span> seconds</div>
+    </div>
+    <script>
+      let seconds =5;
+      let timer;
+  
+      function startTimer() {
+        timer = setInterval(updateTimer, 1000);
+      }
+  
+      function updateTimer() {
+        const countdown = document.getElementById("countdown");
+        countdown.textContent = seconds;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          document.getElementById("resendButton").disabled = false; // Enable the resend button
+          document.getElementById("resendButton").style.display = "block";
+          document.getElementById("timer").style.display = "none";
+          const button = document.getElementById("resendButton");
+          button.classList.add("active"); // Add active class to the button
+
+        } else {
+          seconds--;
+        }
+      }
+  
+      async function resetTimer() {
+        
+        // const nodemailer=require("nodemailer")
+
+        // const newOtp = Math.floor(Math.random() * 9000) + 1000;
+        // console.log(newOtp);
+        // console.log(email+"emailresettimer");
+        // // Send the new OTP via email
+        // const transporter = nodemailer.createTransport({
+        //   service: 'gmail',
+        //   auth: {
+        //     user: 'tjwatches956@gmail.com',
+        //     pass: 'gpmm dazc mhpg mzsc', // Update with your email password
+        //   },
+        // });
+        // const mailOptions = {
+        //   from: 'tjwatches956@gmail.com',
+        //   // to: data.email, // Assuming 'data' contains the user's email
+        //   to:email,
+        //   subject: 'Your OTP for Verification',
+        //   text: `Your new OTP is: ${newOtp}`,
+        // };
+
+        // await transporter.sendMail(mailOptions);
+
+
+        clearInterval(timer);
+        seconds = 5;
+        document.getElementById("countdown").textContent = seconds;
+        document.getElementById("resendButton").disabled = false;
+        document.getElementById("resendButton").style.display = "block"; 
+        document.getElementById("timer").style.display = none;
+        
+        startTimer();
+        document.getElementById("resendButton").classList.add("active"); // Add active class to the button
+
+      }
+    </script>
+  </body>
+  
+</html>

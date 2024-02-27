@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Brand</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+           
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #343a40;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .form-container {
+            margin-left: 260px;
+            padding: 20px;
+        }
+
+        .form-container .form-label {
+            font-weight: bold;
+        }
+
+        .form-container .btn-submit {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .form-container .btn-submit:hover {
+            background-color: #218838;
+        }
+
+        .custom-popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <%-include('sidepanel')%>
+   
+    </nav>
+    <div class="container col-lg-9">
+        <h2 style="margin-left: 40%;">Add Category</h2>
+        <% if(typeof message !=='undefined' ) { %>
+            <div id="customPopup" class="custom-popup">
+                <div class="popup-content">
+                    <p>
+                        <%= message %>
+                    </p>
+                    <button id="cancelButton">Cancel</button>
+                </div>
+            </div>
+            <script>
+                document.getElementById('customPopup').style.display = 'block'; // Show the popup
+
+                document.getElementById('cancelButton').addEventListener('click', function () {
+                    document.getElementById('customPopup').style.display = 'none'; // Hide the popup when cancel is clicked
+                });
+            </script>
+            <% } %>
+                <div class="container w-50 border ">
+                    <form class="mt-5" action="/admin/categoryadding" method="post">
+                        <div class="mb-3">
+                            <label for="UrunID" class="form-label">Category Name</label>
+                            <input name="categoryname" type="text" class="form-control" id="UrunID" >
+                            <label for="UrunID" class="form-label">Offer Percentage</label>
+                            <input name="OfferPercentage" type="number" class="form-control"
+                            id="UrunID" aria-describedby="" required>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button type="submit"
+                                class="btn btn-success text-white btn-outline-success form-control w-50 m-3 btn-submit">
+                                Add Category
+                            </button>
+                        </div>
+                    </form>
+                </div>
+    </div>
+    </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Include Bootstrap CSS and JS (for modal) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

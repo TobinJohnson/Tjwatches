@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Categories</title>
+   <!-- DataTable -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+td {
+  border-bottom: 1px solid #ddd;
+}
+
+button {
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+
+
+label {
+  margin-right: 10px;
+}
+
+input[type="text"] {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px #4CAF50;
+}
+
+  </style>
+</head>
+<body>
+<%-include('sidepanel') %>
+<h1>Product Categories</h1>
+
+<table id="example" class="table table-striped" style="width:100%">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>OfferApplied</th>
+      <th>OfferPercentage</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="categoriesList">
+    <!-- Categories will be added dynamically here -->
+  </tbody>
+</table>
+
+<div >
+  <label for="newCategory">New Category:</label>
+  <input type="text" id="newCategory" style="width: 18.7%;">
+  <button onclick="addCategory()">Add Category</button>
+</div>
+
+<script>
+  // Sample initial categories
+  let categories = ['Electronics', 'Clothing', 'Books'];
+
+  // Function to display categories in the table
+  function displayCategories() {
+    const categoriesList = document.getElementById('categoriesList');
+    categoriesList.innerHTML = '';
+    categories.forEach(category => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${category}</td>
+        <td>
+          <button onclick="updateCategory('${category}')">Update</button>
+          <button onclick="deleteCategory('${category}')">Delete</button>
+        </td>
+      `;
+      categoriesList.appendChild(row);
+    });
+  }
+
+  // Function to add a new category
+  function addCategory() {
+    const newCategory = document.getElementById('newCategory').value.trim();
+    if (newCategory !== '') {
+      categories.push(newCategory);
+      displayCategories();
+      document.getElementById('newCategory').value = '';
+    }
+  }
+
+  // Function to delete a category
+  function deleteCategory(category) {
+    const index = categories.indexOf(category);
+    if (index !== -1) {
+      categories.splice(index, 1);
+      displayCategories();
+    }
+  }
+
+  // Function to update a category
+  function updateCategory(oldCategory) {
+    const newCategory = prompt('Enter new category name:', oldCategory);
+    if (newCategory !== null && newCategory.trim() !== '') {
+      const index = categories.indexOf(oldCategory);
+      if (index !== -1) {
+        categories[index] = newCategory.trim();
+        displayCategories();
+      }
+    }
+  }
+
+  // Initial display of categories
+  displayCategories();
+</script>
+<!-- DATATABLE -->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.js"></script>  
+<script>
+   new DataTable('#example');
+   
+  </script>
+
+</body>
+</html>

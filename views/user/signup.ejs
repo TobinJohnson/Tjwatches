@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up form for TJ Watches</title> 
+    <link rel="stylesheet" href="/css/usersignup.css">
+   </head>
+<body>
+    <main>
+        <section class="form-section">
+          <div class="form-wrapper">
+            
+            <h1 class="title">Sign up</h1>
+            <form id="signupForm" class="" action="/user/signup" method="POST">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>
+                    <span class="sr-only">First Name</span>
+                    <input type="text" placeholder="First Name" class="form-input" name="firstname">
+                    <div class="error" style="display: none;color: red;"></div>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label>
+                    <span class="sr-only">Last Name</span>
+                    <input id="last-name" type="text" placeholder="Last Name" class="form-input" name="lastname" >
+                    <div class="error" style="display: none;color: red;"></div>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>
+                  <span class="sr-only">Mobile Number</span>
+                  <input type="number"  placeholder="Mobile Number" class="form-input" name="phone" >
+                  <div id="mobileError" class="error" style="display: none;color: red;"></div> 
+                  
+                </label> 
+
+              </div>
+              
+              <div class="form-group">
+                <label>
+                  <span class="sr-only">Email address</span>
+                  <input type="mail" placeholder="Email" class="form-input" name="email" >
+                  <div id="emailError" class="error" style="display: none;color: red;"></div>
+                </label>
+                
+               
+              </div>
+
+              <% if(typeof email !=='undefined' && email !==null) { %>
+                <div class=" text-center" style="color: red;">
+                  <%= email %>
+                </div>
+                <% } %>
+              <div class="form-group">
+                <label>
+                  <span class="sr-only">Password</span>
+                  <input type="password" placeholder="Password" class="form-input" name="password" >
+                  <div class="error" style="display: none;color: red;"></div>
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <span class="sr-only">Confirm Password</span>
+                  <input type="password" placeholder="Confirm Password" class="form-input" name="confirmpassword" >
+                  <div class="error" style="display: none;color: red;"></div>
+                </label>
+              </div>
+             
+              <div class="form-group">
+                <input type="submit" value="Submit" class="form-submit">
+              </div>
+    
+              <footer class="form-footer">
+                 
+                  <div>
+                    Already have an account?
+                    <a href="/user/login" class="form-link">Log in</a>
+                  </div>
+              </footer>
+            </form>
+          </div>
+        </section>
+      </main>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('signupForm');
+  const firstNameField = document.querySelector('input[name="firstname"]');
+  const lastNameField = document.querySelector('input[name="lastname"]');
+  const mobileField = document.querySelector('input[name="phone"]');
+  const emailField = document.querySelector('input[name="email"]');
+  const passwordField = document.querySelector('input[name="password"]');
+  const confirmPasswordField = document.querySelector('input[name="confirmpassword"]');
+  
+  form.addEventListener('submit', function (event) {
+    let isValid = true;
+    
+    // Check if First Name is empty
+    if (!firstNameField.value.trim()) {
+      displayError(firstNameField, 'First Name is required');
+      isValid = false;
+    } else {
+      hideError(firstNameField);
+    }
+    
+    // Check if Last Name is empty
+    if (!lastNameField.value.trim()) {
+      displayError(lastNameField, 'Last Name is required');
+      isValid = false;
+    } else {
+      hideError(lastNameField);
+    }
+    // Check if fields are empty
+    if (!mobileField.value.trim()) {
+      displayError(mobileField, 'Mobile number is required');
+      isValid = false;
+    } else {
+      hideError(mobileField);
+    }
+    
+    if (!emailField.value.trim()) {
+      displayError(emailField, 'Email is required');
+      isValid = false;
+    } else {
+      hideError(emailField);
+    }
+    
+    if (!passwordField.value.trim()) {
+      displayError(passwordField, 'Password is required');
+      isValid = false;
+    } else {
+      hideError(passwordField);
+    }
+    
+    if (!confirmPasswordField.value.trim()) {
+      displayError(confirmPasswordField, 'Confirm Password is required');
+      isValid = false;
+    } else {
+      hideError(confirmPasswordField);
+    }
+    
+    // Validate mobile number length
+    if (mobileField.value.trim().length !== 10) {
+      displayError(mobileField, 'Mobile number should be 10 digits');
+      isValid = false;
+    } else {
+      hideError(mobileField);
+    }
+    
+    // Validate email format
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!emailRegex.test(emailField.value.trim())) {
+      displayError(emailField, 'Invalid email format');
+      isValid = false;
+    } else {
+      hideError(emailField);
+    }
+    
+    // Validate password match
+    if (passwordField.value.trim() !== confirmPasswordField.value.trim()) {
+      displayError(confirmPasswordField, 'Passwords do not match');
+      isValid = false;
+    } else {
+      hideError(confirmPasswordField);
+    }
+    
+    if (!isValid) {
+      event.preventDefault(); // Prevent form submission if validation fails
+    }
+  });
+  
+  // Function to display error message
+  function displayError(field, message) {
+    const errorDiv = field.nextElementSibling;
+    errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+  }
+  
+  // Function to hide error message
+  function hideError(field) {
+    const errorDiv = field.nextElementSibling;
+    errorDiv.textContent = '';
+    errorDiv.style.display = 'none';
+  }
+});
+
+      </script>
+</body>
+</html>

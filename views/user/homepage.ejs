@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/userhome.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbs5apA/5UjP/J0sZWQ5l1Aq1oCfQdZUMz9mi5kFkoI" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/82fc123f21.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <%-include('header') %>
+
+        <section>
+            <!-- <div class="container mt-5">
+          <div>
+            <img src="../img/rado.jpeg" class="img">
+            <img src="../img/second.png" class="img">
+
+        </div>
+   -->
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../img/rado.jpeg" class="d-block w-100  img" alt="First Slide" style="height: 35em;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../img/second.png" class="d-block w-100 img" alt="Second Slide">
+                    </div>
+                    <!-- Add more items as needed -->
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div class="row d-flex column-gap-4 ms-1 mt-1 mb-1">
+                <h1>Best Sellers</h1>
+                <% products.forEach(function(products) { %>
+                    <div class="card col-lg-3 text-center position-relative"
+                        style="width: 30%; height: 30%; margin: 10px 0.8%;">
+                        <button class="btn btn-outline-danger position-absolute top-0 end-0"
+                            style="border: none; background-color: transparent;" onclick="toggleHeart(this)"
+                            data-product-id="<%= products.id %>" data-user-id="<%= userid %>">
+                            <i class="far fa-heart" id="heartIcon"></i>
+                        </button>
+
+                        <img src="/uploads/<%= products.images[2] %>" style="width:100%;height: fit-content ;"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+
+                            <h5 class="card-title">
+                                <%= products.name %>
+                            </h5>
+                            <p class="card-text">
+                                <%= products.category %>
+                                    <%= products.description %>
+                            </p>
+                            <!-- <p class="card-text">Rs
+                                <%= products.price %>
+                            </p> -->
+                            <% if (products.offerprice < products.price) { %>
+                                <!-- Show offer price with a strikethrough -->
+                                <p class="card-text">
+                                    <span style="text-decoration: line-through;">Rs <%= products.price %></span><br>
+                                    <b> Rs <%= products.offerprice %> (Offer Price)</b>
+                                </p>
+                                <% } else { %>
+                                    <!-- Show the regular price -->
+                                    <b>
+                                        <p class="card-text">Rs <%= products.price %>
+                                        </p>
+                                    </b>
+                                    <% } %>
+                                        <input type="hidden" id="wishlistStatus_<%= products.id %>"
+                                            value="<%= products.inWishlist %>">
+                                        <!-- <a href="/user/productdesc/<%=products.id %>" class="btn btn-primary ">Buy Now</a> -->
+                                        <a href="/user/productdesc/<%=products.id %>" style="margin: 5px 0px;"
+                                            class="btn btn-primary ">View More</a>
+
+                                        <!-- <a href="/user/cartcopylatest/<%=userid %>" class="btn btn-primary ">Cart</a> -->
+                                        <!-- <form id="addToCartForm" action="/addtocart/<%=products.id %>/<%= userid %>" method="POST">
+                                <button type="submit"  class="btn btn-primary" data-product-id="<%= products.id %>" data-user-id="<%= userid %>">Add to Cart</button>
+                            </form> -->
+                                        <form id="addToCartForm" action="#">
+                                            <button type="button" class="btn btn-primary addToCartButton"
+                                                data-product-id="<%=products.id %>" data-user-id="<%= userid %>">Add to
+                                                Cart</button>
+                                        </form>
+                        </div>
+
+
+                    </div>
+                    <% }) %>
+            </div>
+
+
+            <div id="myCarousel1" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../img/first.png" class="d-block w-100 img" alt="First Slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../img/Guessbanner.png" class="d-block w-100 img" alt="Second Slide">
+                    </div>
+                    <!-- Add more items as needed -->
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel1" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel1" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            </div>
+        </section>
+        <%-include('footer') %>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-cbNnX8TlAW04CyT1GA9H2HYoyAHi8VV7nfdYRv2ftMh+AaPbTTfEWf5Eri1tv1Q5"
+                crossorigin="anonymous"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+                integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+                crossorigin="anonymous"></script>
+            <script>
+                async function toggleHeart(button) {
+                    // Get the heart icon element
+                    const heartIcon = button.querySelector('#heartIcon');
+                    const productId = button.getAttribute('data-product-id');
+                    const userId = button.getAttribute('data-user-id');
+                    const wishlistStatusElement = document.getElementById(`wishlistStatus_${productId}`);
+
+                    // Check if the product is already in the wishlist
+                    const isInWishlist = heartIcon.classList.contains('fas');
+
+
+
+
+                    try {
+                        const response = await fetch(`/user/wishlist/toggle/${productId}/${userId}`, { method: 'POST' });
+                        const data = await response.json();
+                        if (data.status === 'success') {
+                            // Toggle the filled class and change button color
+                            heartIcon.classList.toggle('fas', !isInWishlist);
+                            heartIcon.classList.toggle('far', isInWishlist);
+                            heartIcon.style.color = heartIcon.classList.contains('fas') ? 'red' : 'inherit';
+
+                            const action = isInWishlist ? 'removed from' : 'added to';
+                            const alertTitle = `Product added to wishlist`;
+
+                            await Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'success',
+                                title: alertTitle,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                timerProgressBar: true,
+                                customClass: {
+                                    popup: 'colored-toast',
+                                }
+                            });
+                            // Toggle the wishlist status
+                            wishlistStatusElement.value = !isInWishlist;
+
+
+
+
+                        } else {
+                            console.error('Failed to toggle wishlist status');
+                        }
+                    } catch (error) {
+                        console.error('Error during fetch request:', error);
+                    }
+                }
+            </script>
+            <script>
+                // Enable carousel auto-cycling and pause on hover
+                $('#myCarousel1').carousel({
+                    interval: 5000, // Time in milliseconds (adjust as needed)
+                    pause: 'hover'
+                });
+
+                // Enable manual control
+                $('.carousel-control-prev').click(function () {
+                    $('#myCarousel1').carousel('prev');
+                });
+
+                $('.carousel-control-next').click(function () {
+                    $('#myCarousel1').carousel('next');
+                });
+            </script>
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+                integrity="sha256-oP6HI/tZ1a9Y4/Z1FBPWIJ2j5IOnpI5E8TGGtDlMj7I=" crossorigin="anonymous"></script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    document.body.addEventListener('click', async (event) => {
+                        // Check if the clicked element has the class 'addToCartButton'
+                        if (event.target.classList.contains('addToCartButton')) {
+                            const button = event.target;
+                            const productId = button.getAttribute('data-product-id');
+                            const userId = button.getAttribute('data-user-id');
+                            console.log('Product ID:', productId);
+                            console.log('User ID:', userId);
+
+                            // Make a POST request to add the item to the cart
+                            try {
+                                const response = await fetch(`/addtocart/${productId}/${userId}`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        productId,
+                                        userId
+                                    }),
+                                });
+
+                                if (response.ok) {
+                                    console.log('Item added to cart successfully!');
+
+                                    // Show SweetAlert2 notification
+                                    await Swal.fire({
+                                        toast: true,
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Product Added to Cart',
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                        timerProgressBar: true,
+                                        customClass: {
+                                            popup: 'colored-toast',
+                                        }
+                                    });
+                                } else {
+                                    console.error('Failed to add item to cart');
+                                }
+                            } catch (error) {
+                                console.error('Error:', error);
+                            }
+                        }
+                    });
+                });
+            </script>
+            <!-- <script>
+                document.getElementById('addToCartForm').addEventListener('submit', async function(event) {
+                    event.preventDefault(); // Prevents the default form submission
+            
+                    // Add your logic here to handle the form submission if needed
+            
+                    // Show the SweetAlert2 toast with top-right position and green background
+                    await Swal.fire({
+                        toast: true,
+                        position: 'top-end', // Set to 'top-end' for top right position
+                        icon: 'success',
+                        title: 'Product Added to Cart',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: true,
+                        customClass: {
+                            popup: 'colored-toast',
+                        }
+                    })
+                });
+            </script> -->
+
+</body>
+
+</html>

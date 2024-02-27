@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+
+      <!-- DataTable -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/linearicons.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/themify-icons.css" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/owl.carousel.css" />
+    <link rel="stylesheet" href="/css/nice-select.css" />
+    <link rel="stylesheet" href="/css/nouislider.min.css" />
+    <link rel="stylesheet" href="/css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="/css/ion.rangeSlider.skinFlat.css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/otp.css" />
+
+ <style>
+  *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+body{
+    -webkit-font-smoothing: antialiased;
+    background: #ffffff;
+    margin: 20px; /
+
+}
+h2{
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    padding: 30px 0;
+}
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    /* white-space: nowrap; */
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 14px;
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background: grey;
+}
+
+
+
+
+.fl-table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+/* Responsive */
+
+@media (max-width: 1200px) {
+    .table-wrapper .footerr {
+      margin: 10px 2%;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .table-wrapper .footerr {
+      margin: 10px 1%;
+    }
+  }
+
+
+
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+    }
+    .table-wrapper:before{
+        content: "Scroll horizontally >";
+        display: block;
+        text-align: right;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+        display: block;
+    }
+    .fl-table thead th:last-child{
+        border-bottom: none;
+    }
+    .fl-table thead {
+        float: left;
+    }
+    .fl-table tbody {
+        width: 15px;
+        position: relative;
+        overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+        padding: 2px .625em .625em .625em;
+        height: 6px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width:2px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+    .fl-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+        display: table-cell;
+       
+    }
+    .fl-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+    .fl-table tr:nth-child(even) {
+        background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+        background: #F8F8F8;
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+        display: block;
+        text-align: center;
+    }
+    /* .fl-table td {
+        word-wrap: break-word;
+        max-width: 150px; /* Adjust the max-width as needed */
+    } */
+
+
+ 
+
+
+ </style>
+
+  </head>
+  <body>
+    <!-- End Header Area -->
+    <%-include('header') %>
+
+    
+      <!-- Table Starting -->
+      <div class="table-wrapper" style="margin-top: 7rem;">
+        <% if (orders.length > 0) { %>
+        <a href="/OrdersCancelPage/<%= userId %>" class="btn btn-success">View Cancelled Orders</a>
+        
+      <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th >Order ID</th>
+                    <th >Order Date</th>
+                    <th>Quantity</th>
+                    <th>Address</th>
+                    <th>FinalPrice</th>
+                    <th>Payment Method</th>
+                    <th>Status</th>
+                    <!-- <th>Actions</th> -->
+                </tr>
+            </thead>
+            <tbody >
+              <% for(let i = orders.length - 1; i >= 0; i--) { %>
+                <tr style="font-weight: 700;">
+                  <td><%= orders.length - i %></td>
+
+                            <td style="font-size: 16px;"><a style="text-decoration: none;color: black;" href="/user/orderDetails/<%= orders[i]._id %>"><%= orders[i]._id.toString().slice(-4) %></a></td>
+                            <td><%= new Date(orders[i].orderDate).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+
+                          
+                            <td><%= orders[i].totalQuantity%></td>
+                            <td><%= orders[i].address.address %>, <%= orders[i].address.city %>, <%= orders[i].address.state %>, <%= orders[i].address.pincode %></td>
+                            <td>₹<%=orders[i].totalPrice %></td>
+                            <td><%=orders[i].paymentMethod%></td>
+
+
+                            <td>
+                                                          <%= orders[i].status %> 
+                                                          <br>                                   
+
+                              <% if (orders[i].status === 'Confirmed') { %>
+                                  <!-- Show cancel button only if the order is confirmed -->
+                                  <button class="btn btn-danger" type="button" onclick="confirmCancelOrder('<%= i %>', '<%= orders[i]._id %>')">Cancel</button>
+                              <% } else if (orders[i].status === 'Delivered') { %>
+                                  <!-- Show return button only if the order is delivered -->
+                                  <button class="btn btn-danger" type="button" onclick="confirmReturnOrder('<%= orders[i]._id %>')">Return</button>
+                              <% } %>
+                          </td>
+                            
+                          <input type="hidden" id="cancelReasonInput<%= i %>" />
+
+                         
+                                                    
+                    <% } %> 
+                  
+                      </tr>
+               <% } %> 
+            </tbody>
+        </table>
+    </div> 
+
+
+    <!-- Table Ending -->
+    <% const currentPage=0 %>
+
+
+
+    <!-- Start Footer Area -->
+    
+    <script>
+        function confirmRemoveOrder(orderId) {
+          var confirmation = window.confirm("Are you sure you want to Remove this order?");
+      
+          if (confirmation) {
+            // If the user clicks "OK" in the confirmation dialog, proceed with the removal
+            window.location.href = '/removeOrder/' + orderId;
+          } 
+        } 
+        ///Sort table
+        const tableHeaders = document.querySelectorAll('.fl-table thead th');
+        tableHeaders.forEach(header => {
+        header.addEventListener('click', sortTable);
+
+        function sortTable(event) {
+    const clickedHeader = event.target;
+    const isAscending = table.querySelector('.sort-arrow')?.classList.contains('ascending');
+
+    // Sort the data based on the clicked header
+    orders.sort((a, b) => {
+        const aValue = a[clickedHeader.dataset.column];
+        const bValue = b[clickedHeader.dataset.column];
+
+        return isAscending ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+    });
+
+    // Update the table body with the sorted data
+        const tableBody = document.querySelector('.fl-table tbody');
+        tableBody.innerHTML = '';
+        orders.forEach(order => {
+            // Create table row elements for each order
+            const row = document.createElement('tr');
+            // ... (populate row cells with order data)
+            tableBody.appendChild(row);
+        });
+
+        // Toggle the sort arrow for visual indication
+        if (clickedHeader.querySelector('.sort-arrow')) {
+            clickedHeader.querySelector('.sort-arrow').classList.toggle('ascending');
+        } else {
+            const sortArrow = document.createElement('i');
+            sortArrow.classList.add('fas', 'fa-sort-up', 'sort-arrow', 'ascending');
+            clickedHeader.appendChild(sortArrow);
+        }
+    }
+});
+
+    function confirmCancelOrder(index, orderId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        html: `
+            <div>
+                <p>You want to cancel this order</p>
+                <label for="cancellationReason">Please provide a reason:</label>
+                <textarea id="cancellationReason" class="swal2-textarea" placeholder="Enter your reason here..."></textarea>
+            </div>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, cancel it!',
+        cancelButtonText: 'No, keep it'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const reason = document.getElementById('cancellationReason').value;
+            // Now you can use the 'reason' variable to handle the cancellation reason
+            // For example, you can send it to the server or use it in your logic
+            window.location.href = '/order/cancelOrder/' + orderId + '?reason=' + encodeURIComponent(reason);
+        }
+    });
+}
+
+        function confirmReturnOrder(orderId) {
+          Swal.fire({
+        title: 'Are you sure?',
+        html: `
+            <div>
+                <p>You want to cancel this order</p>
+                <label for="cancellationReason">Please provide a reason:</label>
+                <textarea id="cancellationReason" class="swal2-textarea" placeholder="Enter your reason here..."></textarea>
+            </div>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, cancel it!',
+        cancelButtonText: 'No, keep it'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If the user clicks "OK" in the confirmation dialog, proceed with the removal
+            window.location.href = '/order/returnOrder/' + orderId;
+          } });}
+      </script>
+      
+<!-- Include SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- DATATABLE -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.js"></script>  
+<script>
+   new DataTable('#example');
+   
+  </script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const logoutButton = document.getElementById("logout-button");
+
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent the default link behavior
+
+        // Use SweetAlert2 for confirmation
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Do you really want to logout?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Yes, logout",
+          cancelButtonText: "No, cancel"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If the user confirms, redirect to the logout page
+            window.location.href = "/logout";
+          }
+        });
+      });
+    }
+  });
+</script>
+    <script src="/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+     crossorigin="anonymous"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
+    <script src="/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/jquery.sticky.js"></script>
+    <script src="/js/nouislider.min.js"></script>
+    <script src="/js/countdown.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <!--gmaps Js-->
+    <script src="/js/main.js"></script>
+  
+</body>
+</html>

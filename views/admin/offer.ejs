@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Offer Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+
+        .content h2 {
+            margin-bottom: 20px;
+        }
+
+        .coupon-table {
+            margin-top: 20px;
+        }
+        .edit-delete-buttons {
+        display: flex;
+        gap: 10px; /* Adjust the gap as needed */
+    }
+
+    .edit-delete-buttons button {
+        flex-shrink: 0;
+    }
+        .coupon-table th,
+        .coupon-table td {
+            text-align: center;
+        }
+
+        .coupon-table th {
+            background-color: #007bff;
+            color: rgb(18, 16, 16);
+        }
+
+        .coupon-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('sidepanel') %>
+
+    <div class="content col-lg-11 mt-5 ms-5 px-5">
+        
+        <h1>Offer Details</h1>
+        <a href="/offer/admin/addofferproduct"><button class="btn btn-info">Add Product Offer</button></a>
+        <a href="/offer/admin/addoffercategory"><button class="btn btn-info">Add Category Offer</button></a>
+
+        <h3>Product Offer</h3>
+
+
+        <!-- Responsive table for coupon details -->
+        <div class="table-responsive coupon-table">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Offer Code</th>
+                        <th>Discount %</th>
+                        <!-- <th style="width: 100px;">Start Date</th> -->
+                        <th style="width: 100px;">End Date</th>
+                        <!-- <th>Is Active</th> -->
+                        <th>Applicable Products</th>
+                        <th style="width: 100px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                    <!-- Add your coupon data dynamically here -->
+                    <% for (let i = 0; i < offersproduct.length; i++) { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><%= offersproduct[i].code %></td>
+                            <td><%= offersproduct[i].discount %></td>
+                            <!-- <td><%= formatDate(offersproduct[i].startDate) %></td> -->
+                            <td><%= formatDate(offersproduct[i].endDate) %></td>
+                            <td><% for (let j = 0; j < offersproduct[i].applicableProducts.length; j++) { %>
+                                <!-- Display categoryname for each applicable category -->
+                                <%=offersproduct[i].applicableProducts[j].productName %>
+                                <!-- Add a comma and space if not the last category -->
+                                <% if (j < offersproduct[i].applicableProducts.length - 1) { %>, <% } %>
+                            <% } %>         </td>                   
+                            <td class="edit-delete-buttons">
+                                <!-- Edit Button -->
+                                <a href="/offer/admin/editofferproduct/<%= offersproduct[i]._id %>">
+                                    <button class="btn btn-warning">Edit</button>
+                                </a>
+                
+                                <!-- Delete Button (you may want to confirm before deletion) -->
+                                <form action="/offer/admin/deleteofferproduct/<%= offersproduct[i]._id %>" method="post">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="content col-lg-11 mt-5 ms-5 px-5">
+        <h3>Category Offer</h3>
+
+        <div class="table-responsive coupon-table">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Offer Code</th>
+                        <th>Discount %</th>
+                        <!-- <th style="width: 100px;">Start Date</th> -->
+                        <th style="width: 100px;">End Date</th>
+                        <!-- <th>Is Active</th> -->
+                        <th>Applicable Category</th>
+                        <th style="width: 100px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add your coupon data dynamically here -->
+                    <% for (let i = 0; i < offerscategory.length; i++) { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><%= offerscategory[i].code %></td>
+                            <td><%= offerscategory[i].discount %></td>
+                            <!-- <td><%= formatDate(offerscategory[i].startDate) %></td> -->
+                            <td><%= formatDate(offerscategory[i].endDate) %></td>
+                            <td>
+                                <!-- Loop through applicableCategories -->
+                                <% for (let j = 0; j < offerscategory[i].applicableCategories.length; j++) { %>
+                                    <!-- Display categoryname for each applicable category -->
+                                    <%= offerscategory[i].applicableCategories[j].categoryName %>
+                                    <!-- Add a comma and space if not the last category -->
+                                    <% if (j < offerscategory[i].applicableCategories.length - 1) { %>, <% } %>
+                                <% } %>
+                            </td>
+                            <td class="edit-delete-buttons">
+                                <!-- Edit Button -->
+                                <a href="/offer/admin/editoffercategory/<%= offerscategory[i]._id %>">
+                                    <button class="btn btn-warning">Edit</button>
+                                </a>
+                
+                                <!-- Delete Button (you may want to confirm before deletion) -->
+                                <form action="/offer/admin/deleteoffercategory/<%= offerscategory[i]._id %>" method="post">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+                             <%
+                                function formatDate(dateString) {
+                                const date = new Date(dateString);
+                                const day = date.getDate().toString().padStart(2, '0');
+                                const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Note: Month is zero-based
+                                const year = date.getFullYear().toString().slice(-2);
+                                return `${day}-${month}-${year}`;} %>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+
+        
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

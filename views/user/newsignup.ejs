@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- signup.html -->
+<form id="signupForm" action="/signup" method="POST">
+    <!-- Input fields for signup -->
+    <input type="email" id="email" name="email" placeholder="Email" required>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <!-- Other fields and submit button -->
+
+    <button type="submit">Sign Up</button>
+</form>
+
+<!-- OTP verification form (hidden initially) -->
+<div id="otpForm" style="display: none;">
+    <p>An OTP has been sent to your email. Please enter it:</p>
+    <form action="/verify" method="POST">
+        <input type="hidden" id="emailOTP" name="email" value="">
+        <input type="number" id="userOTP" name="userOTP" placeholder="Enter OTP" required>
+        <span id="otpTimer"></span>
+        <button type="submit">Verify OTP</button>
+    </form>
+</div>
+
+</body>
+</html>

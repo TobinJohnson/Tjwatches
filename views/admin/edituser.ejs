@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN MAIN</title>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/css/adminhome.css">
+    <!-- <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.css" rel="stylesheet"> -->
+</head>
+
+<body>
+    <%-include('sidepanel') %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="/admin/dashboard">ADMIN</a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/admin/addproduct">Add Product</a>
+                <a class="nav-item nav-link" href="/admin/edituser" style="color: black;">Manage User</a>
+                <!-- <a class="nav-item nav-link" onclick="logout()" href="/admin/adminLogout">Logout</a> -->
+            </div>
+           
+        </div>
+    </nav>
+    <table class="userTable" id="product-table" style="width: 80%;height:350px;   border: 1px-solidblack; border-collapse: collapse; /* Ensure borders collapse properly */
+    border: 1px solid #000">
+        <thead style="cursor: pointer;">
+            <tr>
+                <th>Index</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Update</th>
+                <th>Status</th>
+
+            </tr>
+        </thead>
+       
+        <tbody id="userTableId">
+            <% if(userdatadetails.length> 0) { %>
+                <% userdatadetails.forEach(function(userDetail, index) { %>
+                    <tr style="border:2px solid">
+                        <td>
+                            <%= index + 1 %>
+                        </td>
+                        <td>
+                            <%= userDetail.firstname %>
+                        </td>
+                        <td>
+                            <%= userDetail.lastname %>
+                        </td>
+                        <td>
+                            <%= userDetail.email %>
+                        </td>
+                      
+                        
+                           <!-- <img src=" <%= userDetail.image %>" alt="img" style="width: 10vh;"> -->
+                        </td>
+                        
+                        <td>
+                            <button class="btn btn-info" id="updateUserBtn" data-user-id="<%= userDetail.id %>"><a href="/admin/updateUser/<%= userDetail._id %>" style="text-decoration: none;">Update</a></button>
+                            <!-- <button id="toggleStatusBtn">Update</button> -->
+
+                        </td> 
+                        <td>
+                            <% if (userDetail.isBlocked) { %>
+                                <span>Blocked</span>
+                                <% } else { %>
+                                Not Blocked
+                                <% } %>
+                        </td>
+                        <!-- <td>        
+                            <button class="btn-light"><a href="/admin/deleteUser/<%= userDetail._id %>"
+                                    onclick="conform()">Delete</a></button>
+                        </td> -->
+                    </tr>
+                <% }); %>
+            <% }%>
+        </tbody>
+
+    </table>
+    <script>
+
+
+
+document.getElementById('updateUserBtn').addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent the default action (navigation) from occurring immediately
+
+  const userId = this.getAttribute('data-user-id');
+  const confirmed = confirm('Are you sure you want to update this user?'); // Display confirmation dialog
+
+  if (confirmed) {
+    window.location.href = `/admin/updateUser/${userId}`; // Redirect to the updateUser route
+  }
+});
+
+
+        function conform() {
+            const result = confirm('Are You Sure You Want to Delete?');
+            if (result == false) {
+                event.preventDefault();
+            }
+        }
+
+        function logout() {
+            const result = confirm('Are You Sure You Want to Logout?');
+            if (result == false) {
+                event.preventDefault();
+            }
+        }
+
+        function searchUser() {
+            const searchInput = document.getElementById('search').value
+
+            // Make an AJAX request to your server with the search query
+            fetch(`/admin/search?search=${searchInput}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update the table with the received data
+                    const userTableBody = document.getElementById('userTableId');
+                    userTableBody.innerHTML = ''; // Clear the existing table data
+
+                    data.forEach((user, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${user.username}</td>
+                        <td>${user.email}</td>
+                        <td>
+                            <a href="/admin/updateUser/${user._id}" class="btn btn-primary">Update</a>
+                            <a href="/admin/deleteUser/${user._id}" class="btn btn-primary">Delete</a>
+                        </td>
+                    <tr/>
+                    `;
+                        userTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.js"></script>  
+    <script>
+        $(document).ready(function () {
+          $("table").DataTable({
+            order:[0,'asc']
+          });
+        });
+      </script>
+</body>
+
+</html>

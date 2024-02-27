@@ -1,0 +1,49 @@
+<! DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title> ADMIN
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/adminLogin.css">
+  </head>
+
+  <body>
+    <div class="admin_main">
+
+      <div class="container">
+        <h1 class="text-center"> Admin </h1>
+        <div class="row">
+          <div class="col-md-5 mx-auto">
+            <div class="card card-body">
+              <!-- <% if(typeof logout !=='undefined' && logout !==null) { %>
+                <div class="alert alert-success text-center">
+                  <%= logout %>
+                </div>
+                <% } %>
+                <% if(typeof login !=='undefined' && login !==null) { %>
+                <div class="alert alert-danger text-center">
+                  <%= login %>
+                </div>
+                <% } %> -->
+                      <form action="/admin/adminLogin" method="POST" class="pt-3">
+                        
+                        <div class="form-group required">
+                          <input type="text" placeholder="Email" class="form-control text-lowercase" id="email" required="" name="email" value="">
+                        </div>
+                        <div class="form-group required">
+                          <input type="password" placeholder="Password" class="form-control" required="" id="password" name="password" value="">
+                        </div>
+                        <div class="form-group pt-1">
+                          <button class="btn btn-primary btn-block" type="submit"> Log In </button>
+                        </div> 
+                      </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  </html>

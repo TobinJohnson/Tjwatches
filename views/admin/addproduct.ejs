@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/assets/logo.jpg">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
+    <link rel="stylesheet" href="/css/crop.css">
+   
+    <style>
+      #imagePreviewContainer {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+    
+      .img-preview {
+        max-width: 100px; /* Adjust the max-width as needed */
+        max-height: 100px; /* Adjust the max-height as needed */
+        border: 1px solid #ddd; /* Add a border for better visibility */
+        margin-bottom: 10px;
+      }
+     
+    .img-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .remove-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: transparent;
+        color: #fff; /* Set the color of the 'X' symbol */
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .remove-btn:hover {
+        color: #ff0000; /* Change the color on hover if desired */
+    }
+    </style>
+
+   
+</head>
+<body>
+    
+
+    <div class="d-flex justify-content-center" style="margin-top: 10px;">
+        <h1>ADD PRODUCTS</h1>
+    </div>
+
+   <form action="/admin/addproduct" method="POST" enctype="multipart/form-data">
+    <div class="container d-flex justify-content-center" style="margin-top: 30px;">
+    <div class="row justify-content-center">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" name="modelname" required>
+            <label for="floatingInput">Model Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingPassword" name="brand" required> 
+            <label for="floatingInput">Brand</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingPassword" name="description" required>
+            <label for="floatingInput">Description</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="floatingPassword" min="1" max="5" name="rating" required>
+            <label for="floatingInput">Rating</label>
+          </div>
+          <div class="form-floating  mb-3">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="category" required>
+              <option value="" selected disabled>Select</option>
+              <% categories.forEach((category,index) => { %>
+              <option value="<%= category.categoryname %>"><%= category.categoryname %></option>
+              <% }) %>
+            </select>
+            <label for="floatingSelect">Choose the category</label>
+          </div>
+          <div class="form-floating  mb-3">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="colour" required>
+              <option value="" selected disabled>Select</option>
+              <option value="Black">Black</option>
+              <option value="Blue">Blue</option>
+              <option value="White">White</option>
+              <option value="Brown">Brown</option>
+              <option value="Gold">Gold</option>
+              <option value="Silver">Silver</option>
+            </select>
+            <label for="floatingSelect">Choose the colour</label>
+          </div>
+          <div class="form-floating mb-3">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="dialshape" required>
+              <option value="" selected disabled>Select</option>
+              <option value="Round">Round</option>
+              <option value="Square">Square</option>
+              <option value="Rectangle">Rectangle</option>
+            </select>
+            <label for="floatingSelect">Choose the Dial shape</label>
+          </div>
+          <div class="form-floating mb-3">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="strapmaterial" required>
+              <option value="" selected disabled>Select</option>
+              <option value="Leather">Leather</option>
+              <option value="Stainless Steel">Stainless Steel</option>
+              <option value="Silicone">Silicone</option>
+              <option value="Rubber">Rubber</option>
+              <option value="Ceramic">Ceramic</option>
+            </select>
+            <label for="floatingSelect">Choose the Strap material</label>
+          </div>
+
+            
+                <label for="fileUploader"></label>
+                <input type="file" name="image" id="fileUploader" data-image-preview="#imagePreview" accept=".jpg,.png,.jpeg" multiple>
+                <div id="imagePreview"></div>
+
+
+                <!--Cropper model-->
+                <div id="cropper110Modal" style="z-index: 2;">
+                  <div id="imageCropBox">
+                      <div style="text-align: end;">
+                          <button class="cropper110-close">close</button>
+                      </div>
+                      <section class="cropper110-page">
+                          <div class="cropper110-box">
+                              <div class="cropper110-cropping-box"></div>
+                          </div>
+          
+                          <div>
+                              <button class="cropper110-crop mx-3">Crop</button>
+                          </div>
+                      </section>
+                  </div>
+              </div>
+              <!--cropper-->
+
+               <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="floatingPassword" name="price" min="1" required>
+            <label for="floatingInput">Price</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="floatingPassword" name="stock" min="1" required>
+            <label for="floatingInput">Stock Available</label>
+          </div>
+
+                <button type="submit" class="btn btn-primary" style="width: min-content;">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="switch d-flex justify-content-center"><a href="/admin/dashboard">Back to home</a></div>
+
+    <!-- Script -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+    <script src="/js/crop.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+   
+<script>
+  // Array to store images temporarily
+  let tempImages = [];  
+
+  document.getElementById('imageInput').addEventListener('change', function (e) {
+    // Clear existing images
+    document.getElementById('imagePreviewContainer').innerHTML = "";
+
+    // Loop through selected files and display image preview
+    for (let i = 0; i < e.target.files.length; i++) {
+        let file = e.target.files[i];
+
+        // Check if the file is an image
+        if (file && file.type.startsWith('image/')) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                let imgContainer = document.createElement('div');
+                imgContainer.classList.add('img-container');
+
+                let imgElement = document.createElement('img');
+                imgElement.classList.add('img-preview');
+                imgElement.src = e.target.result;
+
+                // Add image to temporary storage
+                tempImages.push({ file, container: imgContainer });
+
+                // Create remove button
+                let removeBtn = document.createElement('button');
+                removeBtn.classList.add('remove-btn');
+                removeBtn.innerHTML = 'X';
+
+                // Add click event to remove image
+                removeBtn.addEventListener('click', function () {
+                    imgContainer.remove(); // Remove the image container
+
+                    // Remove image from temporary storage
+                    let index = tempImages.findIndex(item => item.file === file);
+                    if (index !== -1) {
+                        tempImages.splice(index, 1);
+                    }
+                });
+
+                // Append the remove button to the image container
+                imgContainer.appendChild(removeBtn);
+
+                // Append the image to the container
+                imgContainer.appendChild(imgElement);
+
+                // Append the image container to the preview container
+                document.getElementById('imagePreviewContainer').appendChild(imgContainer);
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            // Handle non-image file (display an alert, ignore, etc.)
+            alert('Please select only image files (JPEG, PNG, etc.).');
+            // Clear the file input
+            this.value = null;
+        }
+    }
+});
+
+</script>

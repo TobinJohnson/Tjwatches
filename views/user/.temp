@@ -1,0 +1,93 @@
+ orderprice = Math.floor(Number(orderprice));
+      $(document).ready(function () {
+        var settings = {
+          url: "/create/orderId",
+          method: "POST",
+          timeout: 0,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify({
+            amount: orderprice,
+          }),
+        };
+
+        //creates new orderId everytime
+        $.ajax(settings).done(function (response) {
+          orderId = response.orderId;
+          orderprice = response.orderprice; // Assign response.orderprice to orderprice
+          ordresignature = response.signature;
+          console.log(orderId);
+          $("#rzp-button1").show();
+        });
+      });
+      // console.log(orderprice);
+      document.getElementById("rzp-button1").onclick = function (e) {
+        var options = {
+          key: "rzp_test_s5DyW0VfQFkKeu",
+          amount: orderprice * 100,
+          currency: "INR",
+          name: "TJ Watches",
+          description: "Online Payment",
+          image: "\img\logo.png",
+          order_id: orderId,
+          handler: function (response) {
+            // Create a form dynamically
+            var form = document.createElement("form");
+            form.method = "post";
+            form.action = "/placeOrder/<%= user_id %>"; // Router
+
+            // Create an input element to hold the payment ID
+            var paymentIdInput = document.createElement("input");
+            paymentIdInput.type = "hidden";
+            paymentIdInput.name = "razorpay_payment_id";
+            paymentIdInput.value = response.razorpay_payment_id;
+
+            // // Add the input element to the form
+            // form.appendChild(paymentIdInput);
+
+            // // Add hidden input fields for payment mode and address details
+            // var paymentModeInput = document.createElement("input");
+            // paymentModeInput.type = "hidden";
+            // paymentModeInput.name = "paymentmode";
+            // paymentModeInput.value =
+            //   document.getElementById("payment-options").value; // Assumes the payment mode is selected through a dropdown
+
+            // form.appendChild(paymentModeInput);
+
+            // var selectedAddressInput = document.querySelector(
+            //   'input[name="deliveryAddress"]:checked'
+            // );
+            // if (selectedAddressInput) {
+            //   var addressIdInput = document.createElement("input");
+            //   addressIdInput.type = "hidden";
+            //   addressIdInput.name = "deliveryAddress";
+            //   addressIdInput.value = selectedAddressInput.value;
+
+            //   form.appendChild(addressIdInput);
+            // }
+
+            // // Append the form to the body
+            // document.body.appendChild(form);
+
+            // // Submit the form
+            // console.log(selectedAddress);
+            form.submit();
+          },
+        };
+
+        var rzp1 = new Razorpay(options);
+
+        rzp1.on("payment.failed", function (response) {
+          alert(response.error.code);
+          alert(response.error.description);
+          alert(response.error.source);
+          alert(response.error.step);
+          alert(response.error.reason);
+          alert(response.error.metadata.order_id);
+          alert(response.error.metadata.payment_id);
+        });
+
+        rzp1.open();
+        e.preventDefault();
+      };

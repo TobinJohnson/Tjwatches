@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/3da5cff3a5.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/cropperjs"></script>
+    <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.css">
+    <style>
+        #form {
+    background-color: #EEF7F1;
+}
+
+#Kategori {
+    height: 38px;
+    border: 1px solid #CED4D9;
+    border-radius: 3px;
+}
+
+#ekleButton:hover {
+    box-shadow: -1px 1px 17px 0px rgba(0,0,0,0.75);
+}
+
+
+
+li {
+    margin-right: 3.5em;
+
+}
+
+li:hover {
+    box-shadow: -1px 1px 17px 0px rgba(0,0,0,0.75);
+    
+}
+
+input:hover {
+    border-color: rgb(106, 161, 143);
+}
+
+#loginform {
+    border: 10px solid gray;
+    background-color: rgb(199, 194, 194);
+    opacity: 0.8;
+}
+
+#adminbody {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(89,44,111,1) 46%, rgba(98,29,93,1) 98%);
+}
+
+#invalidlogin {
+    display: none;
+}
+#loginbutton {
+    position: absolute;
+    left: 44.5%;
+    top: 430px;
+}
+.create-button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 10px 20px;
+      background-color: #28a745; /* Green color for the button */
+      color: #fff;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+      margin-right: 10px; /* Add some spacing between the button and the table */
+    }
+.create-button:hover {
+      background-color: #218838; /* Darker green color on hover */
+    }
+    #imageContainer {
+      overflow: hidden;
+            width: 300px; /* Set the width of the crop area */
+            height: 300px; /* Set the height of the crop area */
+            border: 1px solid #ccc;
+    }
+    </style>
+</head>
+<body>
+   <nav class="navbar navbar-expand navbar-light bg-light">
+     <div class="container-sm">
+          <a class="navbar-brand" href="#">K-tronics</a>
+          <div class="navcontent">
+            <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-center">
+              <li class="nav-item border border-2 ps-3 pe-3">
+                <a class="nav-link active fs-4" aria-current="page" href="#">Add Products</a>
+              </li>
+              <li class="nav-item border border-2 ps-3 pe-3">
+                <a class="nav-link active fs-4 " aria-current="page" href="#">Update Products</a>
+              </li>
+              <li class="nav-item border border-2 ps-3 pe-3">
+                <a class="nav-link active fs-4 " href="#" tabindex="-1" aria-disabled="true">Database</a>
+              </li>
+             
+            </ul> -->
+        </div>
+        <a href="/admin/addproduct" id="createuser" class="create-button">Back</a>
+        </div>
+      </nav>
+
+<div class="container w-50 border mt-5 " id="form">
+      <form class="mt-5" method="post" action="/admin/addproduct" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="UrunID" class="form-label">Product Name</label>
+          <input type="text" class="form-control" name="productname" id="UrunID" aria-describedby="" required>
+        </div>
+        <div class="mb-3">
+          <label for="UrunAdi" class="form-label">Price</label>
+          <input type="number" min="0" class="form-control" name="price" id="UrunAdi" required>
+        </div>
+        <!-- <div class="mb-3">
+          <label class="form-label" for="UrunMiktar">Rating</label>
+          <input type="number" min="0" class="form-control" name="rating" id="UrunMiktar" required>
+        </div> -->
+        <div class="mb-3">
+          <label for="UrunAdii" class="form-label">Model</label>
+          <input type="text" class="form-control" name="model" id="UrunAdii" required>
+        </div>
+        <div class="mb-3">
+          <label for="UrunAdiii" class="form-label">Description</label>
+          <input type="text" class="form-control" name="description" id="UrunAdiii" required>
+        </div>
+        <div class="mb-3">
+          <label for="UrunAdi" class="form-label">Product Category</label>
+          <br>
+          <!-- <input type="text" class="form-control" name="category" id="UrunAdi" required> -->
+          <select id="options" name="category" style="width: 100%; height: 37.6px; border-radius: 4px; border: rgb(118, 118, 118);">
+            <option value="" selected disabled>Select</option>
+            <% categories.forEach(category => { %>
+                <option value="<%= category.name %>"><%= category.categoryname %></option>
+            <% }); %>
+        </select>
+        </div>
+        
+        <!-- <div class="mb-3">
+          <label for="UrunAdi" class="form-label">Image URL</label>
+          <input type="text" class="form-control" name="image" id="UrunAdi" required>
+        </div> -->
+        <div>
+          <input type="file" id="imageInput" name="image" accept="image/*" multiple>
+      </div>
+      <div id="imageContainer">
+          <img id="croppedImage" alt="Cropped Image">
+      </div>
+
+      <div class="mb-3">
+          <label for="UrunAdiiii" class="form-label">Add Stock</label>
+          <input type="number" min="0" class="form-control" name="stock" id="UrunAdiiii" required>
+      </div>
+
+      <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-success text-white btn-outline-success form-control w-50 m-3" id="addProductButton">Add Product</button>
+      </div>
+        <!-- <div class="mb-3">
+            <label for="Kategori" class="form-label">Product Category</label>
+            <select name="Kategori" id="Kategori" name="category" class="ms-1 d-block w-100" required>
+                <option></option>
+                <option value="Phone">Phone</option>
+                <option value="Smart Home">TV & Smart Home</option>
+                <option value="Laptop">Laptop & Tablet</option>
+                <option value="Lifestyle">Lifestyle</option>
+            </select>
+        </div> -->
+        <!-- <div class="mb-3">
+            <label for="UrunImage" class="form-label">Product Image</label>
+            <input type="file" class="form-control" name="image" id="UrunImage">
+        </div> -->
+        
+        
+          <!-- <div class="mb-3">
+            <label for="UrunImage" class="form-label">Product Image</label>
+            <input type="file" class="form-control" name="image" id="UrunImage">
+          </div> -->
+          <!-- Other form fields -->
+          <!-- <button type="submit" class="btn btn-success text-white btn-outline-success form-control w-50 m-3" id="ekleButton" name="stock">Add Stock</button> -->
+       
+        
+        <!-- <div class=" mt-4">
+            <label for="reminder" class="form-check-label">Send e-mail when stock runs out</label>
+            <input type="checkbox" class="form-check-input" name="reminder">
+        </div> -->
+        
+        <!-- </div>
+        <a class="button" href="/admin/homee">Add Stock</a> -->
+      </form>
+  </div>
+ 
+  <!-- ... (previous code) ... -->
+
+  <script>
+    let cropper;
+    let input = document.getElementById("imageInput");
+    let imageContainer = document.getElementById("imageContainer");
+    let croppedImage = document.getElementById("croppedImage");
+
+    input.addEventListener("change", function () {
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            if (cropper) {
+                cropper.destroy();
+            }
+
+            const img = new Image();
+            img.src = e.target.result;
+
+            img.onload = function () {
+                imageContainer.innerHTML = "";
+                imageContainer.appendChild(img);
+
+                
+                cropper = new Cropper(img, {
+                    aspectRatio: NaN, // Set the desired aspect ratio
+                    viewMode: 2,
+                    autoCropArea: 1,
+                });
+
+            };
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById("addProductButton").addEventListener("click", function (event) {
+        event.preventDefault();
+
+        if (cropper) {
+            const canvasData = cropper.getCroppedCanvas();
+            if (canvasData) {
+                canvasData.toBlob(function (blob) {
+                    const formData = new FormData();
+                    formData.append("image", blob, "cropped-image.png");
+
+                    // Append other form data
+                    formData.append("productname", document.getElementById("UrunID").value);
+                    formData.append("price", document.getElementById("UrunAdi").value);
+                    // formData.append("rating", document.getElementById("UrunMiktar").value);
+                    formData.append("model", document.getElementById("UrunAdii").value);
+                    formData.append("description", document.getElementById("UrunAdiii").value);
+                    formData.append("category", document.getElementById("options").value);
+                    formData.append("stock", document.getElementById("UrunAdiiii").value);
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/admin/addproduct", true);
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            console.log("Product added successfully");
+                            // Redirect to the previous page
+                            window.location.href = "/admin/homee";
+                        } else {
+                            console.error("Error adding product:", xhr.statusText);
+                        }
+                    };
+                    xhr.onerror = function () {
+                        console.error("Network error");
+                    };
+                    xhr.send(formData);
+                });
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

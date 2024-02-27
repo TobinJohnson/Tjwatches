@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Coupon</title>
+</head>
+<body>
+    <%- include('sidepanel') %>
+
+    <div class="content col-lg-9 mt-5 ms-5 px-5">
+        <h2>Edit Coupon</h2>
+        <form action="/coupon/admin/editcoupon/<%= coupon[0]._id %>" method="post" id="couponForm">
+            <div class="mb-3">
+                <label for="couponCode" class="form-label">Coupon Code</label>
+                <input type="text" class="form-control" name="couponCode" value="<%=coupon[0].couponcode %>">
+            </div>
+            <div class="mb-3">
+                <label for="discount" class="form-label">Discount</label>
+                <input type="text" class="form-control" name="discount"value="<%=coupon[0].discount %>">
+            </div>
+            <div class="mb-3">
+                <label for="expireDate" class="form-label">Expire Date</label>
+                <input type="date" class="form-control" name="expireDate" value="<%=coupon[0].expiredate.toISOString().split('T')[0] %>">
+            </div>
+            <!-- <div class="mb-3">
+                <label for="purchaseAmount" class="form-label">Purchase Amount</label>
+                <input type="number" class="form-control" name="purchaseamount"value="<%=coupon[0].purchaseamount %>">
+            </div> -->
+            <div id="messageContainer"></div>
+
+            <button type="submit" class="btn btn-primary">Apply Coupon</button>
+        </form>    </div>
+</body>
+</html>

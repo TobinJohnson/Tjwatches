@@ -1,0 +1,115 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+h1, h2 {
+    margin-bottom: 10px;
+}
+
+/* Header styles */
+header {
+    background-color: #f0f0f0;
+    padding: 20px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.navbar-nav {
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-item {
+    padding: 0 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+}
+
+/* Profile page section styles */
+section {
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* Forms */
+.formprofile {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="search"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+#profilePic {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#profilePic img {
+    margin-right: 20px; /* Adjust spacing between image and button */
+}
+
+#profilePic input[type="file"],
+#profilePic button {
+    margin-left: 10px; /* Adjust spacing between input and button */
+}

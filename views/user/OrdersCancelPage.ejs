@@ -1,0 +1,320 @@
+<!-- cancelOrdersPage.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content here -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+    />
+
+   <!-- DataTable -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+
+
+    <link rel="stylesheet" href="/css/linearicons.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/themify-icons.css" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/owl.carousel.css" />
+    <link rel="stylesheet" href="/css/nice-select.css" />
+    <link rel="stylesheet" href="/css/nouislider.min.css" />
+    <link rel="stylesheet" href="/css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="/css/ion.rangeSlider.skinFlat.css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/otp.css" />
+    <style>
+        *{
+          box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+      }
+      body{
+          -webkit-font-smoothing: antialiased;
+          background: #ffffff;
+          margin: 20px; /
+      
+      }
+      h2{
+          text-align: center;
+          font-size: 18px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: white;
+          padding: 30px 0;
+      }
+      
+      /* Table Styles */
+      
+      .table-wrapper{
+          margin: 10px 70px 70px;
+          box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+      }
+      
+      .fl-table {
+          border-radius: 5px;
+          font-size: 12px;
+          font-weight: normal;
+          border: none;
+          border-collapse: collapse;
+          width: 100%;
+          max-width: 100%;
+          /* white-space: nowrap; */
+          background-color: white;
+      }
+      
+      .fl-table td, .fl-table th {
+          text-align: center;
+          padding: 8px;
+          font-size: 16px;
+      }
+      
+      .fl-table td {
+          border-right: 1px solid #f8f8f8;
+          font-size: 14px;
+      }
+      
+      .fl-table thead th {
+          color: #ffffff;
+          background: grey;
+      }
+      
+      
+      
+      
+      .fl-table tr:nth-child(even) {
+          background: #F8F8F8;
+      }
+      
+      /* Responsive */
+      
+      @media (max-width: 1200px) {
+          .table-wrapper .footerr {
+            margin: 10px 2%;
+          }
+        }
+      
+        @media (max-width: 992px) {
+          .table-wrapper .footerr {
+            margin: 10px 1%;
+          }
+        }
+      
+      
+      
+      @media (max-width: 767px) {
+          .fl-table {
+              display: block;
+              width: 100%;
+          }
+          .table-wrapper:before{
+              content: "Scroll horizontally >";
+              display: block;
+              text-align: right;
+              font-size: 11px;
+              color: white;
+              padding: 0 0 10px;
+          }
+          .fl-table thead, .fl-table tbody, .fl-table thead th {
+              display: block;
+          }
+          .fl-table thead th:last-child{
+              border-bottom: none;
+          }
+          .fl-table thead {
+              float: left;
+          }
+          .fl-table tbody {
+              width: 15px;
+              position: relative;
+              overflow-x: auto;
+          }
+          .fl-table td, .fl-table th {
+              padding: 2px .625em .625em .625em;
+              height: 6px;
+              vertical-align: middle;
+              box-sizing: border-box;
+              overflow-x: hidden;
+              overflow-y: auto;
+              width:2px;
+              font-size: 13px;
+              text-overflow: ellipsis;
+          }
+          .fl-table thead th {
+              text-align: left;
+              border-bottom: 1px solid #f7f7f9;
+          }
+          .fl-table tbody tr {
+              display: table-cell;
+             
+          }
+          .fl-table tbody tr:nth-child(odd) {
+              background: none;
+          }
+          .fl-table tr:nth-child(even) {
+              background: transparent;
+          }
+          .fl-table tr td:nth-child(odd) {
+              background: #F8F8F8;
+              border-right: 1px solid #E6E4E4;
+          }
+          .fl-table tr td:nth-child(even) {
+              border-right: 1px solid #E6E4E4;
+          }
+          .fl-table tbody td {
+              display: block;
+              text-align: center;
+          }
+          /* .fl-table td {
+              word-wrap: break-word;
+              max-width: 150px; /* Adjust the max-width as needed */
+          } */
+      
+      
+       
+      
+      
+       </style>
+</head>
+<body>
+    <!-- Add your header content here -->
+    <table id="example" class="table table-striped" style="width:95%; margin-left:2%; justify-self:center" >
+        <thead style="margin-top: 100px;">
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <!-- <th>Product ID</th> -->
+                    <!-- <th style="width: 25%;">Product Name</th> -->
+                    <th>Quantity</th>
+
+                    <!-- <th>Price</th> -->
+                    <th>Address</th>
+                    <th>FinalPrice</th>
+                    <th>Payment Method</th>
+
+                    <th>Status</th>
+                    <!-- <th>Order Details</th> -->
+                </tr>
+            </thead>
+            <%-include('header') %>
+
+            <tbody >
+                <% for(let i=0; i<orders.length; i++) { %>
+                        <tr style="font-weight: 700;">
+                            <td style="font-size: 16px;"><a href="/user/orderDetails/<%= orders[i]._id %>"><%= orders[i]._id.toString().slice(-4) %></a></td>
+                            <td><%= new Date(orders[i].orderDate).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+
+                          
+                            <td><%= orders[i].totalQuantity%></td>
+                            <td><%= orders[i].address.address %>, <%= orders[i].address.city %>, <%= orders[i].address.state %>, <%= orders[i].address.pincode %></td>
+                            <td>₹<%=orders[i].totalPrice.toFixed(2)%></td>
+                            <td><%=orders[i].paymentMethod%></td>
+
+                            <td><%= orders[i].status %></td>
+                            <!-- <td>
+                              <div class="dropdown">
+                                <button class="btn btn-danger
+                                " type="button" id="dropdownMenuButton<%= i %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Cancel
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= i %>"> -->
+                                    <!-- <% if (orders[i].status === 'Delivered') { %>
+                                      <button class="dropdown-item" onclick="confirmReturnOrder('<%= orders[i]._id %>')">Return Order</button>
+                                      <button class="dropdown-item" onclick="confirmRemoveOrder('<%= orders[i]._id %>')">Remove Order</button>
+                                    <% } else if (orders[i].status === 'Cancelled') { %>
+                                      <button class="dropdown-item" disabled>Order Cancelled</button>
+                                    <% } else { %>
+                                      <button class="dropdown-item" onclick="confirmCancelOrder('<%= orders[i]._id %>')">Cancel Order</button> -->
+                                
+                                      <!-- <% if (orders[i].status === 'Delivered' || orders[i].status === 'Confirmed') { %>
+                                        <button class="dropdown-item" onclick="confirmCancelOrder('<%= orders[i]._id %>')">Cancel Order</button>
+                                    <% } else { %>
+                                        <button class="dropdown-item" disabled>Cancel Order</button>
+                                    <% } %> -->
+<!--                                 
+                                    </div>
+                              </div>
+                            </td> -->
+
+
+                            <!-- <td>
+                              <div class="dropdown">
+                                  <button class="btn btn-danger" type="button" id="dropdownMenuButton<%= i %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Cancel
+                                  </button>
+                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= i %>">
+                                      <% if (orders[i].status === 'Delivered' || orders[i].status === 'Confirmed') { %>
+                                          <button class="dropdown-item" onclick="confirmCancelOrder('<%= orders[i]._id %>')">Cancel Order</button>
+                                      <% } else { %>
+                                          <button class="dropdown-item" disabled>Cancel Order</button>
+                                      <% } %>
+                                  </div>
+                              </div>
+                          </td> -->
+                          <td>
+                            <button class="btn btn-danger" type="button" onclick="confirmCancellation('<%= orders[i]._id %>')">
+                                Approve
+                            </button>
+                        </td>
+                                                    
+                    <% } %> 
+                    
+                  
+                        <!-- <td style="text-align: right;"><a href="/orderView/<%= orders[i]._id %>" class="view-more-button btn btn-info">View More</a></td> -->
+                      </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <script>
+            function confirmCancellation(orderId) {
+                var confirmation = window.confirm("Are you sure you want to cancel this order?");
+                console.log(orderId+"Hello");
+                if (confirmation) {
+                    window.location.href = `/order/cancelconfirm/${orderId}`;
+                } else {
+                    // If the user clicks "Cancel" or closes the dialog, do nothing
+                }
+            }
+
+
+
+            
+        </script>
+        <!-- DATATABLE -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.js"></script>  
+<script>
+   new DataTable('#example');
+   
+  </script>
+</body>
+</html>

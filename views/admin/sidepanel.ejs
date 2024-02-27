@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .toggle-btn {
+  display: none; /* Initially hide the toggle button */
+}
+
+@media (max-width: 760px) {
+  /* Show the toggle button and hide the side panel when the screen width is below 1080px */
+  .sidebar {
+    display: none;
+  }
+
+  .toggle-btn {
+    display: block;
+  }
+  
+        
+}
+
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/sidepanel.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.jshttps://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+ <aside class="sidebar position-fixed top-0 left-0 overflow-auto h-100 float-left w-5" id="show-side-navigation1">
+    <div class="sidebar-header d-flex justify-content-center align-items-center px-3 py-4">
+      
+      <div class="ms-6">
+        <h5 class="fs-6 mb-0">
+          <a class="text-decoration-none" href="/admin/dashboard">TJ Watches</a>
+        </h5>
+        <p class="mt-1 mb-0">Beyond the imagination</p>
+      </div>
+    </div>
+  
+      <div id="sidepanel" style="line-height: 25px;">
+      <div><a href="/admin/dashboard"  class="ahref" style="margin-left:10%;text-decoration:none;color: white;line-height: -10px;"> Dashboard</a>
+      <br><br>
+      <a href="/admin/product" style="margin-left:10%;text-decoration:none;color: white;"> Product Management</a>
+      <br><br>
+      <a href="/admin/category" style="margin-left:10%;text-decoration:none;color: white;"> Category Management</a>
+      <br><br>
+      <a href="/admin/edituser" style="margin-left:10%;text-decoration:none;color: white;"> User Management</a>
+      <br><br>
+      <a href="/admin/orderdetails" style="margin-left:10%;text-decoration:none;color: white;"> Order Management</a>
+      <br><br>
+      <a href="/admin/salesReport" style="margin-left:10%;text-decoration:none;color: white;">  Sales Management</a>
+      <br><br>
+      <a href="/coupon/admin/viewcoupon" style="margin-left:10%;text-decoration:none;color: white;"> Coupon Management</a>
+      <br><br>
+    
+      <a href="/admin/adminLogout" style="margin-left:10%;text-decoration:none;color: white;"><i class="fas fa-sign-out-alt" style="font-size:20px;color:red"></i> Logout</a>
+
+        
+    <ul class="categories list-unstyled">
+    </ul>
+  </aside>
+  
+  <section id="wrapper">  
+    <nav class="navbar navbar-expand-md" >
+      <div class="container-fluid mx-2>
+          <div class="navbar-header">
+            
+          <a class="navbar-brand" href="#">Welcome Admin</a>
+          <button class="navbar-toggler" type="button" onclick="toggleSidePanel()" aria-label="Toggle navigation">
+            <i class="uil-bars text-white"></i>
+        </button>
+        </div>
+        <div class="collapse navbar-collapse" id="toggle-navbar">
+          <ul class="navbar-nav ms-auto">
+           
+         
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/adminLogout">Log Out </i></a>
+            </li>
+            
+
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i data-show="show-side-navigation1" class="uil-bars show-side-btn"></i>
+              </a>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <script>
+      function toggleSidePanel() {
+          const sidePanel = document.querySelector('.sidebar');
+          sidePanel.classList.toggle('show'); // Toggle the 'show' class
+      }
+  </script>
+</body>
+</html>

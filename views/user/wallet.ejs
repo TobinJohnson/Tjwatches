@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet Information</title>
+  <!-- Include Bootstrap CSS -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      max-width: 600px;
+      margin-top: 50px;
+    }
+
+    .card {
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      margin-top: 20px;
+      margin-left: 25%;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      color: #343a40;
+    }
+
+    .card-text {
+      font-size: 1.25rem;
+      color: #495057;
+    }
+
+    .list-group-item {
+      font-size: 1.25rem;
+      color: #495057;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+
+    #modal {
+      margin-top: 5%;
+      margin-left: 25%;
+    }
+
+
+
+
+
+
+    .img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0px auto;
+      display: block;
+      margin: 15px 0px;
+
+    }
+
+    .sicons {
+      height: 15px;
+    }
+
+    .card {
+
+      width: 21rem;
+      border: 1px solid rgb(8, 8, 8)
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: #2319b0;
+      text-decoration: none;
+    }
+
+    .pg-footer {
+      font-family: 'Roboto', sans-serif;
+    }
+
+
+    .footer {
+      background-color: #004658;
+      color: #fff;
+    }
+
+    .footer-wave-svg {
+      background-color: transparent;
+      display: block;
+      height: 30px;
+      position: relative;
+      top: -1px;
+      width: 100%;
+    }
+
+    .footer-wave-path {
+      fill: #fffff2;
+    }
+
+    .footer-content {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1230px;
+      padding: 40px 15px 450px;
+      position: relative;
+    }
+
+    .footer-content-column {
+      box-sizing: border-box;
+      float: left;
+      padding-left: 15px;
+      padding-right: 15px;
+      width: 100%;
+      color: #fff;
+    }
+
+    .footer-content-column ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer-logo-link {
+      display: inline-block;
+    }
+
+    .footer-menu {
+      margin-top: 30px;
+    }
+
+    .footer-menu-name {
+      color: #fffff2;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      line-height: 18px;
+      margin-bottom: 0;
+      margin-top: 0;
+      text-transform: uppercase;
+    }
+
+    .footer-menu-list {
+      list-style: none;
+      margin-bottom: 0;
+      margin-top: 10px;
+      padding-left: 0;
+    }
+
+    .footer-menu-list li {
+      margin-top: 5px;
+    }
+
+    .footer-call-to-action-description {
+      color: #fffff2;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .footer-call-to-action-button:hover {
+      background-color: #fffff2;
+      color: #00bef0;
+    }
+
+    .button:last-of-type {
+      margin-right: 0;
+    }
+
+    .footer-call-to-action-button {
+      background-color: #027b9a;
+      border-radius: 21px;
+      color: #fffff2;
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      line-height: 18px;
+      padding: 12px 30px;
+      margin: 0 10px 10px 0;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background-color .2s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .footer-call-to-action {
+      margin-top: 30px;
+    }
+
+    .footer-call-to-action-title {
+      color: #fffff2;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      line-height: 18px;
+      margin-bottom: 0;
+      margin-top: 0;
+      text-transform: uppercase;
+    }
+
+    .footer-call-to-action-link-wrapper {
+      margin-bottom: 0;
+      margin-top: 10px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer-call-to-action-link-wrapper a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+
+
+
+
+    .footer-social-links {
+      bottom: 0;
+      height: 54px;
+      position: absolute;
+      right: 0;
+      width: 236px;
+    }
+
+    .footer-social-amoeba-svg {
+      height: 54px;
+      left: 0;
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 236px;
+    }
+
+    .footer-social-amoeba-path {
+      fill: #027b9a;
+    }
+
+    .footer-social-link.linkedin {
+      height: 26px;
+      left: 3px;
+      top: 11px;
+      width: 26px;
+    }
+
+    .footer-social-link {
+      display: block;
+      padding: 10px;
+      position: absolute;
+    }
+
+    .hidden-link-text {
+      position: absolute;
+      clip: rect(1px 1px 1px 1px);
+      clip: rect(1px, 1px, 1px, 1px);
+      -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+      clip-path: inset(0px 0px 99.9% 99.9%);
+      overflow: hidden;
+      height: 1px;
+      width: 1px;
+      padding: 0;
+      border: 0;
+      top: 50%;
+    }
+
+    .footer-social-icon-svg {
+      display: block;
+    }
+
+    .footer-social-icon-path {
+      fill: #fffff2;
+      transition: fill .2s;
+    }
+
+    .footer-social-link.twitter {
+      height: 28px;
+      left: 62px;
+      top: 3px;
+      width: 28px;
+    }
+
+    .footer-social-link.youtube {
+      height: 24px;
+      left: 123px;
+      top: 12px;
+      width: 24px;
+    }
+
+    .footer-social-link.github {
+      height: 34px;
+      left: 172px;
+      top: 7px;
+      width: 34px;
+    }
+
+    .footer-copyright {
+      background-color: #027b9a;
+      color: #fff;
+      padding: 15px 30px;
+      text-align: center;
+    }
+
+    .footer-copyright-wrapper {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1200px;
+    }
+
+    .footer-copyright-text {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 18px;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+
+    .footer-copyright-link {
+      color: #fff;
+      text-decoration: none;
+    }
+
+
+
+
+
+
+
+    /* Media Query For different screens */
+    @media (min-width:320px) and (max-width:479px) {
+
+      /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+      .footer-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1230px;
+        padding: 40px 15px 1050px;
+        position: relative;
+      }
+    }
+
+    @media (min-width:480px) and (max-width:599px) {
+
+      /* smartphones, Android phones, landscape iPhone */
+      .footer-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1230px;
+        padding: 40px 15px 1050px;
+        position: relative;
+      }
+    }
+
+    @media (min-width:600px) and (max-width: 800px) {
+
+      /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+      .footer-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1230px;
+        padding: 40px 15px 1050px;
+        position: relative;
+      }
+    }
+
+    @media (min-width:801px) {
+      /* tablet, landscape iPad, lo-res laptops ands desktops */
+
+    }
+
+    @media (min-width:1025px) {
+      /* big landscape tablets, laptops, and desktops */
+
+    }
+
+    @media (min-width:1281px) {
+      /* hi-res laptops and desktops */
+
+    }
+
+
+
+
+    @media (min-width: 760px) {
+      .footer-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1230px;
+        padding: 40px 15px 450px;
+        position: relative;
+      }
+
+      .footer-wave-svg {
+        height: 50px;
+      }
+
+      .footer-content-column {
+        width: 24.99%;
+      }
+    }
+
+    @media (min-width: 568px) {
+      /* .footer-content-column {
+        width: 49.99%;
+    } */
+    }
+
+    /* newwwend */
+    #products {
+      width: 100%;
+    }
+
+    #products .container {
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+      font-size: 0;
+    }
+
+    #products .container .products-header {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    #products .container .products-header h2 {
+      padding: 2rem 1rem;
+      text-transform: uppercase;
+      font-family: "Franklin Gothic Medium";
+      color: #000000;
+      font-size: 1.875rem;
+      font-weight: 400;
+      letter-spacing: 0.2rem;
+      line-height: 1;
+      text-align: center;
+    }
+
+    #products .container .products-header p {
+      font-family: Cambria;
+      color: rgba(89, 89, 89, 1);
+      font-size: 1rem;
+      font-style: italic;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    #products .container .product {
+      width: 25%;
+      display: inline-block;
+      font-size: 16px;
+      text-align: center;
+      padding: 1.8rem;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    /* #products .container .product:hover {
+	-webkit-transform: scale(0.9);
+	transform: scale(0.9);
+	opacity: 0.8;
+	-webkit-transition: opacity 800ms ease-in-out 0s;
+	transition: opacity 800ms ease-in-out 0s;
+	-webkit-transition: -webkit-transform 1s ease-in-out 0s;
+	transition: -webkit-transform 1s ease-in-out 0s;
+	transition: transform 1s ease-in-out 0s;
+	transition: transform 1s ease-in-out 0s, -webkit-transform 1s ease-in-out 0s;
+	cursor: pointer;
+} */
+
+    #products .container .product figure img {
+      width: 100%;
+      height: auto;
+    }
+
+    #products .container .product figure figcaption {
+      font-family: "Franklin Gothic Medium";
+      color: rgba(89, 89, 89, 1);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02rem;
+      text-align: center;
+      padding: 1rem 0rem 0rem;
+      text-transform: uppercase;
+    }
+
+    @media only screen and (max-width: 1024px) {
+      #products .container .product {
+        width: 50%;
+        padding: 3rem;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      #products .container .product {
+        width: 50%;
+        padding: 2rem;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      #products .container .product {
+        width: 100%;
+      }
+    }
+
+    #contact {
+      width: 100%;
+      height: auto;
+      background-color: #000000;
+    }
+
+    #contact .container {
+      width: 80%;
+      margin: 0 auto;
+      display: block;
+      padding-bottom: 2rem;
+      text-transform: capitalize;
+    }
+
+    #contact .container h4 {
+      font-family: "Franklin Gothic Medium";
+      color: #ffffff;
+      font-size: 1.125rem;
+      font-weight: 400;
+      letter-spacing: 0.056rem;
+      text-align: center;
+      text-transform: uppercase;
+      padding-top: 3rem;
+      padding-bottom: 2rem;
+    }
+
+    #contact .container p {
+      font-family: Cambria;
+      color: #ffffff;
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.044rem;
+      text-align: center;
+      padding: 0.2rem 0rem;
+    }
+
+    #contact .container p.email {
+      margin: 0 auto;
+      margin-top: 16rem;
+      border-bottom: 1px solid white;
+      text-align: left;
+      width: 40%;
+    }
+
+    #contact .container p.email span {
+      width: 17px;
+      height: 15px;
+      float: right;
+    }
+
+    #contact .container p.email span img {
+      width: 17px;
+      height: auto;
+    }
+
+    @media only screen and (max-width: 800px) {
+      #contact .container p.email {
+        width: 90%;
+      }
+    }
+
+    footer {
+      background-color: #595959;
+      font-size: 0;
+      padding: 1.6rem 0rem;
+      width: 100%;
+    }
+
+    footer p {
+      font-family: Corbel;
+      color: #f5f2f1;
+      font-weight: 400;
+      font-size: 16px;
+      width: 10%;
+      display: inline-block;
+      text-align: center;
+    }
+
+    footer .copy-right {
+      width: 80%;
+      text-align: left;
+      padding-left: 4rem;
+    }
+
+    @media only screen and (max-width: 920px) {
+      footer p {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.4rem;
+      }
+
+      footer .copy-right {
+        width: 100%;
+        text-align: center;
+        margin-left: -2.2rem;
+      }
+    }
+
+    .back-to-top {
+      padding: 1rem;
+      position: fixed;
+      bottom: 8%;
+      right: 2%;
+      z-index: 2;
+      opacity: 0.2;
+      background-color: rgba(255, 255, 255, 0);
+    }
+
+    .back-to-top:hover {
+      -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+      background-color: rgba(255, 255, 255, 0.4);
+      opacity: 1;
+    }
+
+    @import url("https://fonts.googleapis.com/css?family=Lato");
+
+    *,
+    *:before,
+    *:after {
+      margin: 0;
+      padding: 0;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0 auto;
+      background-color: #ffffff;
+      font-size: 16px;
+      font-family: "Lato", sans-serif;
+      overflow-x: hidden;
+      padding: 10px;
+    }
+
+    header nav {
+      background-color: #ffffff;
+      width: 100%;
+      font-size: 0;
+      vertical-align: middle;
+      height: 6.6rem;
+      line-height: 6.6rem;
+      -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    header nav .nav-common {
+      display: inline-block;
+    }
+
+    header nav .logo {
+      width: 10%;
+      text-align: center;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    header nav ul {
+      width: 65%;
+      list-style: none;
+      /*  font-size: 0;*/
+      font-size: 16px;
+    }
+
+    header nav ul li {
+      display: inline-block;
+      width: 18%;
+      text-align: center;
+    }
+
+    header nav ul li a {
+      text-transform: uppercase;
+      color: rgb(89, 89, 89);
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    header nav ul li a:hover {
+      color: rgba(89, 89, 89, 0.6);
+    }
+
+    header nav .nav-icon {
+      width: 7.5%;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      header nav {
+        height: 5rem;
+        line-height: 5rem;
+      }
+
+      header nav .logo {
+        width: 45%;
+      }
+
+      header nav .nav-icon img {
+        margin-top: 1.4rem;
+      }
+
+      header nav ul {
+        width: 20%;
+        display: none;
+      }
+
+      header nav ul li {
+        display: none;
+      }
+
+      header nav .cart {
+        width: 15%;
+        text-align: right;
+      }
+
+      header nav .menu {
+        width: 20%;
+      }
+    }
+
+    #header-hero {
+      width: 100%;
+      display: block;
+      position: relative;
+    }
+
+    #header-hero .header-bg {
+      width: 100%;
+      height: auto;
+    }
+
+    #header-hero .header-bg img {
+      width: 100%;
+      height: auto;
+    }
+
+    #header-hero .header-content {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.1);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+      position: absolute;
+      top: 0%;
+      text-align: center;
+      color: #f2f2f2;
+      padding: 0rem 0.4rem;
+    }
+
+    #header-hero .header-content p.heading-1 {
+      text-transform: uppercase;
+      margin: 0 auto;
+      font-family: "Lato", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 2vw;
+      padding-top: 9vw;
+    }
+
+    #header-hero .header-content h1 {
+      margin: 0 auto;
+      font-family: "Lato", sans-serif;
+      font-size: 3rem;
+      font-style: italic;
+      text-transform: uppercase;
+      margin-bottom: 2.4vw;
+    }
+
+    #header-hero .header-content h1 .logo-style {
+      color: #ce0095;
+    }
+
+    #header-hero .header-content p.description {
+      margin: 0 auto;
+      width: 30%;
+      font-family: Cambria;
+      font-size: 1.4rem;
+      font-style: italic;
+      margin-bottom: 5vw;
+    }
+
+    #header-hero .header-content .button {
+      margin: 0 auto;
+      background-color: #a61458;
+      -webkit-box-shadow: 0px 1px 3.84px 0.16px rgba(0, 0, 0, 0.35);
+      box-shadow: 0px 1px 3.84px 0.16px rgba(0, 0, 0, 0.35);
+      width: 10rem;
+      padding: 0.8rem;
+    }
+
+    .button {
+      margin: 0 auto;
+      background-color: #4dcb37;
+      /* -webkit-box-shadow: 0px 1px 3.84px 0.16px rgba(0, 0, 0, 0.35);
+	box-shadow: 0px 1px 3.84px 0.16px rgba(0, 0, 0, 0.35); */
+      width: 7rem;
+      padding: 0.5rem;
+      border-radius: 10px;
+
+    }
+
+    #header-hero .header-content .button p {
+      font-family: Cambria;
+      font-size: 1rem;
+      font-weight: 400;
+      text-align: justify;
+      margin: 0 auto;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    @media only screen and (max-width: 1440px) {
+      #header-hero .header-content p.description {
+        width: 40%;
+        margin-bottom: 3rem;
+        font-size: 1.2rem;
+      }
+
+      #header-hero .header-content p.heading-1 {
+        padding-top: 8vw;
+      }
+    }
+
+    @media only screen and (max-width: 1024px) {
+      #header-hero .header-bg {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+      }
+
+      #header-hero .header-bg img {
+        width: 100rem;
+        height: 40rem;
+        margin-left: -50%;
+      }
+
+      #header-hero .header-content p.heading-1 {
+        padding-top: 20vw;
+      }
+
+      #header-hero .header-content p.description {
+        width: 60%;
+        margin-bottom: 4rem;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      #header-hero .header-content h1 {
+        font-size: 2rem;
+        padding: 1rem 0rem;
+      }
+
+      #header-hero .header-bg img {
+        width: 100rem;
+        height: 40rem;
+        margin-left: -140%;
+      }
+
+      #header-hero .header-content p.description {
+        width: 50%;
+        margin-bottom: 3rem;
+        text-align: left;
+      }
+
+      #header-hero .header-content .button {
+        width: 8rem;
+        padding: 0.6rem;
+      }
+
+      #header-hero .header-content .button p {
+        font-size: 0.8rem;
+      }
+    }
+
+    header {
+      background-color: #007bff;
+      padding: 15px 0;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-right: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    /* Balance Card */
+    .balance-card {
+      border: 3px solid #191919;
+      border-radius: 8px;
+      margin-top: 20px;
+      padding: 15px;
+    }
+
+    .balance-card-title {
+      font-size: 1.5rem;
+      color: #343a40;
+    }
+
+    .balance-card-text {
+      font-size: 2rem;
+      color: #007bff;
+      margin-top: 10px;
+    }
+
+    /* Transaction History Card */
+    .transaction-history-card {
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      margin-top: 20px;
+      padding: 15px;
+    }
+
+    .transaction-history-title {
+      font-size: 1.5rem;
+      color: #343a40;
+    }
+
+    .transaction-list-item {
+      font-size: 1.25rem;
+      color: #495057;
+    }
+
+    /* Add Balance Form */
+    #addBalanceForm {
+      margin-top: 20px;
+    }
+
+    /* Buttons */
+    .btn-custom {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #ffffff;
+    }
+
+    .btn-custom:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    thead {
+      background-color: #090a0b;
+      color: white;
+    }
+
+    th,
+    td {
+      border: 1px solid #090a0b;
+      padding: 8px;
+      text-align: left;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+  <%-include('header') %>
+
+
+    <div class="container">
+      <h1 class="text-center mb-4">Wallet</h1>
+      <!-- <div class="back"><a href="/home">&#11178; Back to Shop</a></div> -->
+
+      <!-- Display Wallet Balance -->
+      <div class="card balance-card" style="display: flex;">
+        <div class="card-body">
+          <h5 class="balance-card-title">Current Balance</h5>
+          <p class="balance-card-text">Balance: ₹ <%= userdetails.Wallet %>
+          </p>
+        </div>
+      </div>
+
+      <!-- Transaction History Card
+    <div class="card transaction-history-card" style="display: flex;">
+        <div class="card-body">
+          <h5 class="transaction-history-title">Transaction History</h5>
+          <ul class="list-group">
+            <li class="list-group-item transaction-list-item">Deposit: ₹500 </li>
+            <li class="list-group-item transaction-list-item">Withdrawal: ₹200 </li>
+            <li class="list-group-item transaction-list-item">Deposit: ₹300 </li>
+          </ul>
+        </div>
+      </div> -->
+      <h1>Wallet Transactions</h1>
+      <table style="border: 1px solid #090a0b;">
+        <thead>
+          <tr>
+            <th>Mode</th>
+            <th>Transaction</th>
+            <!-- <th>Amount</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <% userdetails.WalletUpdates.forEach((update, index)=> { %>
+            <tr>
+              <td>Credit</td>
+              <td>
+                <%= update %>
+              </td>
+              <!-- <td>
+                <%= userdetails.WalletBalance[index] %>
+              </td> -->
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+
+
+
+
+
+
+      <!-- Your other EJS template code -->
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Add Balance Form
+    <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="card-title">Add Balance</h5> -->
+
+    <!-- Form for adding balance -->
+    <!-- <form id="addBalanceForm">
+            <div class="form-group">
+              <label for="amount">Amount (₹)</label>
+              <input type="number" class="form-control" id="amount" name="amount" required>
+            </div>
+            <button type="button" class="btn btn-custom" onclick="handlePayment()">Add Balance</button>
+        </form>
+      </div>
+    </div>
+  </div> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+    <!-- Include Bootstrap JS and Popper.js for Bootstrap functionalities -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add this in the head section of your HTML -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    <script>
+      // Function to handle Razorpay payment
+      function handlePayment() {
+        var amount = document.getElementById('amount').value;
+
+        // Make an AJAX request to your server to generate a Razorpay order
+        fetch('/generate-razorpay-order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ amount: amount })
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Initialize Razorpay checkout
+            var options = {
+              key: 'rzp_test_uXE7sd7ymgONTh',
+              amount: data.amount,
+              currency: 'INR',
+              name: 'K TRONICS',
+              description: 'Add Balance',
+              order_id: data.id,
+              handler: function (response) {
+                // Send the Razorpay payment ID to your server for verification
+                fetch('/verify-razorpay-payment', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ paymentId: response.razorpay_payment_id, amount: amount })
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.success) {
+                      console.log("SUCCESS");
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Balance Added Successfully!',
+                        position: 'top-end',
+                        toast: true,
+                        showConfirmButton: false,
+                        timer: 1500,  // Display the toast for 1.5 seconds
+                        customClass: {
+                          popup: 'swal2-small-toast',  // Apply a custom class for smaller toast
+                        },
+                      });
+
+                      // Optionally, you can add a delay before submitting the form
+                      setTimeout(() => {
+                        document.getElementById('addBalanceForm').submit();
+                      }, 1500);  // Adjust the delay as needed
+                    } else {
+                      // Handle payment failure
+                      alert('Payment failed. Please try again.');
+                    }
+                  });
+              }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
+    </script>
+</body>
+
+</html>

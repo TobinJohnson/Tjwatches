@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+  <head>
+    <!-- Mobile Specific Meta -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    
+    <meta charset="UTF-8" />
+    <!-- Site Title -->
+    <title>TJ Watches</title>
+    <!--
+		CSS
+		============================================= -->
+    <style>
+       .coupon-section {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        #couponInput {
+            width: 70%;
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        #applyCouponBtn {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #couponContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .couponCard {
+    border: 3px solid #0b0b0b;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #ffc70d;
+
+  }
+    </style>
+        <link rel="stylesheet" href="/css/footeruser.css">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  </head>
+
+  <body>
+
+
+<!-- Start Header Area -->
+<%-include('header') %>
+<!-- End Header Area -->
+
+ <!-- cart + summary -->
+ <section class="bg-light my-5" style="margin-top: 7rem !important">
+  <div class="container">
+    <div class="row">
+      <h4 class="card-title mb-4">CheckOut Page</h4>
+      <div class="row">
+        <div class="col-lg-9">
+            <% if (cartItems.length > 0) { %>
+              <table class="table table-bordered" style="align-items: end;">
+                <!-- Table Header -->
+                <thead class="table-dark">
+                  <tr >
+                    <th scope="col">Index</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Dial Size</th>
+                    <th scope="col">Dial Shape</th>
+                    <th scope="col" style="width:15%;">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <p id="user" style="visibility: hidden;";><%= user_id %></p>
+
+                  <!-- Table Body with Cart Items -->
+                  <% cartItems.forEach((item, index) => { %>
+                    <tr id="product-<%= item.productDetails._id %>">
+                      <td><%= index + 1 %></td>
+                      <td>
+                        <img src="/uploads/<%= item.productDetails.images[2] %>" class="border rounded" style="width: 96px; height: 96px;" />
+                      </td>
+                      <td><a href="#" class="nav-link"><%= item.productDetails.name %><p id="product" style="visibility: hidden;"; ><%= item.productDetails._id %></p></a></td>
+                      <td><a href="#" class="nav-link"><%= item.productDetails.category %></a></td>
+                      <td><a href="#" class="nav-link"><%= item.productDetails.size %></a></td>
+                      <td><a href="#" class="nav-link"><%= item.productDetails.dialshape %></a></td>
+
+                      <!-- <td>
+                        <div class="input-group">
+                          <button type="button" class="btn btn-sm btn-secondary minus-btn" id="increaseButton">-</button>
+                          <input type="text" class="form-control quantity-input"  id="quantity"  value="<%= item.quantity %>" readonly>
+                          <button type="button" class="btn btn-sm btn-secondary plus-btn" id="decreaseButton">+</button>
+                        </div>
+                      </td> -->
+
+
+                      <td width="125px">
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary" type="button"
+                                data-action="decrement"
+                                data-product-id="<%= item.productDetails._id %>"
+                                onclick="handleQuantityChange('decrement', '<%= item.productDetails._id %>')">-</button>
+                            <input type="text" class="form-control" value="<%= item.quantity %>" readonly
+                                data-product-id="<%= item.productDetails._id %>"
+                                id="quantityInput_<%= item.productDetails._id %>"
+                                style="text-align: center; border: 1px solid #777474;">
+                            <button class="btn btn-outline-secondary" type="button"
+                                data-action="increment"
+                                data-product-id="<%= item.productDetails._id %>"
+                                onclick="handleQuantityChange('increment', '<%= item.productDetails._id %>')">+</button>
+                        </div>
+                    </td>
+
+                      <td><%= item.productDetails.price %></td>
+                      <td>
+                        <button type="button" class="btn btn-sm btn-danger remove-btn">Remove</button>
+                      </td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            <% } else { %>
+              <!-- If cart is empty -->
+              <div class="container mt-4">
+                <div class="alert alert-info" role="alert">
+                  <h4 class="alert-heading">Your Cart is Empty!</h4>
+                  <p>Browse our products and start shopping!</p>
+                  <hr>
+                </div>
+              </div>
+            <% } %>
+          </div>
+          
+
+
+        <!-- Coupon Section  -->
+            <!-- <div class="coupon-section col-lg-3">
+                <h4 class="mb-3">Apply Coupon</h4>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="couponInput" placeholder="Enter coupon code">
+                    <button class="btn btn-primary" id="applyCouponBtn">Apply Coupon</button>
+                </div>
+                <p id="couponMessage" class="mt-2"></p>
+            </div> -->
+      
+        <!-- Summary Section -->
+        <div class="col-lg-3">
+          <div class="card shadow-0 border">
+            <h4 class="mb-3">Apply Coupon</h4>
+            <div id="couponContainer" ></div>
+
+            <div class="input-group">
+                <input type="text" class="form-control" id="couponInput" placeholder="Enter coupon code">
+                <button class="btn btn-primary" id="applyCouponBtn"style="margin-top: 1%;">Apply Coupon</button>
+                <button class="btn btn-primary" id="viewAvailableCouponsBtn" style="margin-top: 2%; height: 15%;">Show Available Coupons</button>
+
+
+                 <div class="d-flex ">
+                  <button type="button" onclick="removeCoupon()" id="removeCouponBtn"
+                    class="btn btn-danger w-100 ms-2" style="display: none;">Remove</button>
+                </div>
+
+            </div>
+            <p id="couponMessage" class="mt-2"></p>
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <p class="mb-2">Total price:</p>
+                <p class="mb-2" id="totalPrice"> ₹<%= totalPrice%></p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p class="mb-2">Coupon Discount:</p>
+                <!-- <p class="mb-2" id="discountedPrice"><%= %></p> -->
+                <p class="mb-2" id="discountedPrice">₹<span id="couponDiscountAmount">0</span></p>
+
+              </div>
+              <div class="d-flex justify-content-between">
+                <p class="mb-2">Delivery charges:</p>
+                <p class="mb-2" id=deliverycharge">₹0</p>
+              </div>
+              <hr />
+              <div class="d-flex justify-content-between">
+                <p class="mb-2">Final price:</p>
+                <p class="mb-2 fw-bold" id="finalTotalPrice" name="finalTotalPrice"> ₹<%= totalPrice%></p>
+              </div>
+              <div class="mt-3">
+                <!-- <a href="/placeOrder/<%= user_id %>?totalPrice=<%= totalPrice %>" class="btn btn-success w-100 shadow-0 mb-2"> Make Purchase </a> -->
+                <a href="/placeOrder/<%= user_id %>?totalPrice=<%= totalPrice %>" class="btn btn-success w-100 shadow-0 mb-2" id="makePurchaseBtn"> Make Purchase </a>
+
+                <a href="/home" class="btn btn-light w-100 border mt-2"> Back to shop </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+           
+                  <!-- summary -->       
+<!-- cart -->
+</div>
+</div>
+</section>
+ <!-- cart + summary -->
+ 
+ 
+  
+  <!-- Start Footer Area -->
+  <%-include('footer') %>
+
+
+  <!-- Include jQuery if not already included -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-dQ93IBn5LlpcMzPHnACmNzmG9lAUiMQgH7xGfeNqfEJdFMI5FU71W5jRTl6F2NfN"
+  crossorigin="anonymous">
+  </script>
+  <script>
+    document.getElementById('viewAvailableCouponsBtn').addEventListener('click', function() {
+      // Make a request to fetch available coupons
+      fetch('/availableCoupons')
+        .then(response => response.json())
+        .then(data => {
+          // Update the UI with available coupons
+          displayAvailableCoupons(data);
+        })
+        .catch(error => console.error('Error fetching available coupons:', error));
+    });
+  
+    function displayAvailableCoupons(coupons) {
+    
+      const couponContainer = document.getElementById('couponContainer');
+  
+      // Clear existing coupons
+      couponContainer.innerHTML = '';
+  
+      // Iterate through coupons and display them
+      coupons.forEach(coupon => {
+        // const couponElement = document.createElement('div');
+        // couponElement.textContent = `Code: ${coupon.couponcode}, Discount: ${coupon.discount}%`;
+        const couponCard = document.createElement('div');
+      couponCard.classList.add('couponCard');
+
+      const codeElement = document.createElement('div');
+      codeElement.textContent = `Code: ${coupon.couponcode}`;
+
+      const discountElement = document.createElement('div');
+      discountElement.textContent = `Discount: ${coupon.discount}%`;
+      couponCard.appendChild(codeElement);
+      couponCard.appendChild(discountElement);
+      couponContainer.appendChild(couponCard);
+
+        // couponContainer.appendChild(couponElement);
+      });
+    }
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const makePurchaseBtn = document.getElementById('makePurchaseBtn');
+  
+      makePurchaseBtn.addEventListener('click', function () {
+        const finalTotalPriceElement = document.getElementById('finalTotalPrice');
+        const finalTotalPrice = finalTotalPriceElement.textContent.trim().replace('₹', '');
+  
+        // Append the final total price as a query parameter to the URL
+        makePurchaseBtn.href = `/placeOrder/<%= user_id %>?totalPrice=${finalTotalPrice}`;
+      });
+    });
+  </script>
+ <script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const applyCouponBtn = document.getElementById('applyCouponBtn');
+
+      applyCouponBtn.addEventListener('click', function () {
+          applyCoupon();
+      });
+  });
+
+  async function applyCoupon() {
+      const couponInput = document.getElementById('couponInput');
+      const couponMessage = document.getElementById('couponMessage');
+      const totalPriceElement = document.getElementById('totalPrice');
+      const finalTotalPriceElement = document.getElementById('finalTotalPrice');
+      const couponDiscountAmount = document.getElementById('discountedPrice');
+
+
+      // You can implement the logic to validate and apply the coupon here
+      // const couponCode = couponInput.value.trim();
+      
+      // Example: Check if the coupon is valid (you can replace this with your actual validation logic)
+      // if (couponCode === 'SAVE10') {
+      //     const discount=10
+      //     const currentTotalPrice = parseFloat(totalPriceElement.textContent.replace('₹', ''));
+      //     const discountAmount = currentTotalPrice * 0.1;
+      //     console.log(discountedPrice+"discounted");
+
+          
+      //     const discountedTotalPrice = currentTotalPrice * (100 - discount) / 100;
+      //     couponDiscountAmount.textContent = `₹${discountAmount.toFixed(2)}`;
+
+      //     finalTotalPriceElement.textContent = `₹${discountedTotalPrice.toFixed(2)}`;
+
+      //     couponMessage.textContent = 'Coupon applied successfully!';
+      //     couponMessage.style.color = 'green';
+      // } else {
+      //     couponMessage.textContent = 'Invalid coupon code. Please try again.';
+      //     couponMessage.style.color = 'red';
+      // }
+      try {
+        const response = await fetch('/availableCoupons');
+        const coupons = await response.json();
+
+        const couponCode = couponInput.value.trim();
+
+        // Find the matching coupon
+        const matchedCoupon = coupons.find(coupon => coupon.couponcode === couponCode);
+
+        if (matchedCoupon) {
+            const discount = matchedCoupon.discount;
+            const currentTotalPrice = parseFloat(totalPriceElement.textContent.replace('₹', ''));
+            const discountAmount = currentTotalPrice * (discount / 100);
+
+            const discountedTotalPrice = currentTotalPrice - discountAmount;
+
+            couponDiscountAmount.textContent = `₹${discountAmount.toFixed(2)}`;
+            finalTotalPriceElement.textContent = `₹${discountedTotalPrice.toFixed(2)}`;
+
+            couponMessage.textContent = 'Coupon applied successfully!';
+            couponMessage.style.color = 'green';
+        } else {
+            couponMessage.textContent = 'Invalid coupon code. Please try again.';
+            couponMessage.style.color = 'red';
+        }
+    } catch (error) {
+        console.error('Error fetching available coupons:', error);
+        // Handle the error, show a message, etc.
+    }
+  }
+</script>
+
+<script>
+  async function handleQuantityChange(action, productId) {
+      const quantityInput = document.getElementById(`quantityInput_${productId}`);
+      let newQuantity;
+
+      if (action === 'increment') {
+          newQuantity = parseInt(quantityInput.value, 10) + 1;
+      } else if (action === 'decrement' && parseInt(quantityInput.value, 10) > 1) {
+          newQuantity = parseInt(quantityInput.value, 10) - 1;
+      } else {
+          return; // Do nothing if the action is not valid
+      }
+
+      try {
+          // Make a fetch request to check stock availability
+          const stockCheckResponse = await fetch(`/checkStock/${productId}/${newQuantity}`);
+          const stockCheckData = await stockCheckResponse.json();
+          console.log(stockCheckResponse+"response")
+          console.log(stockCheckData+"data")
+
+          if (!stockCheckResponse.ok) {
+              throw new Error(`Failed to check stock availability: ${stockCheckResponse.status}`);
+          }
+
+          if (!stockCheckData.message) {
+              // If stock is not available, notify the user and prevent the update
+              console.log('Insufficient stock. Cannot update quantity.');
+              return;
+          }
+
+          // Continue with the update if stock is available
+          const updateQuantityResponse = await fetch(`/updateQuantity/${productId}/${newQuantity}`, {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+          });
+
+          if (!updateQuantityResponse.ok) {
+              throw new Error(`Failed to update quantity: ${updateQuantityResponse.status}`);
+          }
+
+          const updateQuantityData = await updateQuantityResponse.json();
+          console.log('Quantity updated successfully:', updateQuantityData);
+
+          // Update the input field with the new quantity after a successful operation
+          quantityInput.value = newQuantity;
+          window.location.reload()
+          // You can add any additional UI updates here if needed
+      } catch (error) {
+          console.error('Error updating quantity:', error);
+          // Handle the error, show a message, etc.
+      }
+  }
+</script>
+
+  <script>
+    
+  
+    // Example: Add click event listeners to your +/- buttons
+    document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('plus-btn')) {
+      handleCartUpdate(event.target, 'increase');
+    } else if (event.target.classList.contains('minus-btn')) {
+      handleCartUpdate(event.target, 'decrease');
+    } else if (event.target.classList.contains('remove-btn')) {
+      handleCartRemove(event.target);
+    }
+  });
+});
+
+
+
+
+
+
+// Function to handle cart update (increase/decrease)
+function handleCartUpdate(button, action) {
+
+const userElement = document.getElementById('user');
+const userId= userElement.innerHTML;
+const itemId = button.closest('tr').querySelector('#product').innerHTML;
+
+
+
+
+  fetch(`/user/cart/update/${userId}/${itemId}/${action}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+      return response.json();
+    })
+    .then(data => {
+      updateUIAfterCartUpdate(itemId, data);
+      const updatedValue = data.updatedValue;
+
+    })
+    .catch(error => {
+      console.error('Error updating quantity', error);
+    });
+}
+
+// Function to handle cart removal
+function handleCartRemove(button) {
+    const userElement = document.getElementById('user');
+    const userId= userElement.innerHTML;
+    const itemId = button.closest('tr').querySelector('#product').innerHTML;
+
+
+  fetch(`/user/cart/remove/${userId}/${itemId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+      return response.json();
+      })
+      .then(data => {
+        updateUIAfterCartRemove(itemId);
+    })
+    .catch(error => {
+      console.error('Error removing product from cart', error);
+    });
+}
+
+// Function to update UI after cart update
+// function updateUIAfterCartUpdate(itemId, data) {
+//   const quantityInput = document.querySelector(`input[data-itemid="${itemId}"]`);
+//   if (quantityInput) {
+//     quantityInput.value = data.cartItems.find(item => item.productDetails._id === itemId).quantity;
+//   }
+
+//   document.getElementById('totalPrice').textContent = `₹${data.totalPrice.toFixed(2)}`;
+//   document.getElementById('finalTotalPrice').textContent = `₹${data.totalPrice.toFixed(2)}`;
+//   // Update other relevant UI elements
+// }
+function updateUIAfterCartUpdate(itemId, data) {
+  const quantityInput = document.querySelector(`#product-${itemId} .quantity-input`);
+  const itemQuantityElement = document.querySelector(`#product-${itemId} #item-quantity`);
+
+  if (quantityInput) {
+    quantityInput.value = data.cartItems.find(item => item.productDetails._id === itemId).quantity;
+  }
+  if (itemQuantityElement) {
+      itemQuantityElement.textContent = data.updatedItemQuantity; // Update the live quantity
+    }  
+  document.getElementById('totalPrice').textContent = `₹${data.totalPrice.toFixed(2)}`;
+  document.getElementById('finalTotalPrice').textContent = `₹${data.totalPrice.toFixed(2)}`;
+  document.getElementById('quantity').textContent = `₹${data.updatedValue.toFixed(2)}`;
+
+  // Update other relevant UI elements
+}
+
+function updateUIAfterCartRemove(itemId) {
+  const removedItem = document.getElementById(`product-${itemId}`);
+  if (removedItem) {
+    removedItem.remove();
+  }
+  // Update other relevant UI elements
+}
+
+
+  </script>
+  
+<!-- Include SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const logoutButton = document.getElementById("logout-button");
+
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent the default link behavior
+
+        // Use SweetAlert2 for confirmation
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Do you really want to logout?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Yes, logout",
+          cancelButtonText: "No, cancel"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If the user confirms, redirect to the logout page
+            window.location.href = "/logout";
+          }
+        });
+      });
+    }
+  });
+</script>
+
+
+<!-- ================ End footer Area ================= -->
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+ crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

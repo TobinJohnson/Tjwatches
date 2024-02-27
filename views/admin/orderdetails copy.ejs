@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/linearicons.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/themify-icons.css" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/owl.carousel.css" />
+    <link rel="stylesheet" href="/css/nice-select.css" />
+    <link rel="stylesheet" href="/css/nouislider.min.css" />
+    <link rel="stylesheet" href="/css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="/css/ion.rangeSlider.skinFlat.css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/otp.css" />
+ <style>
+  *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+body{
+    -webkit-font-smoothing: antialiased;
+    background: #ffffff;
+}
+h2{
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    padding: 30px 0;
+}
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 14px;
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background: grey;
+}
+
+
+
+
+.fl-table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+/* Responsive */
+
+@media (max-width: 1200px) {
+    .table-wrapper .footerr {
+      margin: 10px 2%;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .table-wrapper .footerr {
+      margin: 10px 1%;
+    }
+  }
+
+
+
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+    }
+    .table-wrapper:before{
+        content: "Scroll horizontally >";
+        display: block;
+        text-align: right;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+        display: block;
+    }
+    .fl-table thead th:last-child{
+        border-bottom: none;
+    }
+    .fl-table thead {
+        float: left;
+    }
+    .fl-table tbody {
+        width: 15px;
+        position: relative;
+        overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+        padding: 20px .625em .625em .625em;
+        height: 6px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width:20px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+    .fl-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+        display: table-cell;
+    }
+    .fl-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+    .fl-table tr:nth-child(even) {
+        background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+        background: #F8F8F8;
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+        display: block;
+        text-align: center;
+    }
+    /* .fl-table td {
+        word-wrap: break-word;
+        max-width: 150px; /* Adjust the max-width as needed */
+    } */
+
+
+ 
+
+
+ </style>
+
+  </head>
+  <body>
+    <%- include('sidepanel') %>
+    <!-- End Header Area -->
+
+    
+      <!-- Table Starting -->
+      <div class="table-wrapper" style="margin-top: 7rem;">
+        <% if (orders.length > 0) { %>
+        <a href="/cancelOrdersPage/<%= userId %>" class="btn btn-success">View Cancelled Orders</a>
+        
+     <table class="fl-table" style:"font-size:1.6rem">
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Order Date</th>
+                    <!-- <th>Product ID</th> -->
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Total Order Quantity</th>
+
+                    <th>Price</th>
+                    <th>Address</th>
+                    <th>FinalPrice</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                    <!-- <th>Order Details</th> -->
+                </tr>
+            </thead>
+            <tbody >
+                <% for(let i=0; i<orders.length; i++) { %>
+                    <% for(let j=0; j<orders[i].products.length; j++) { %>
+                        <tr style="font-weight: 700;">
+                            <td style="font-size: 16px;"><%= orders[i]._id.toString().slice(-4) %></td>
+                            <!-- <td><%= orders[i].orderDate %></td> -->
+                            <td><%= new Date(orders[i].orderDate).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+
+                            <!-- <td><%= orderIds[i][j]%></td> -->
+                            <!-- <td><%= orders[i].products[j].productid %></td> -->
+                            <td "><%= orders[i].products[j].product %></td>
+                            <td><%= orders[i].products[j].quantity %></td>
+                            <td><%= orders[i].totalQuantity%></td>
+                            <td>₹<%= orders[i].products[j].price %></td>
+                            <td><%= orders[i].address.address %>, <%= orders[i].address.city %>, <%= orders[i].address.state %>, <%= orders[i].address.pincode %></td>
+                            <td>₹<%=orders[i].totalPrice.toFixed(2)%></td>
+                            <td><%= orders[i].products[j].status %></td>
+                            <td>
+                                <% if (orders[i].products[j].status !== 'Returned') { %>
+                                    <% if (orders[i].products[j].status === 'Delivered') { %>
+                                        <button class="return-button btn btn-success" onclick="confirmReturnOrder('<%= orders[i]._id %>')">Return Order</button>
+                                        <button class="remove-button btn btn-danger" onclick="confirmRemoveOrder('<%= orders[i]._id %>')">Remove Order</button>
+                                    <% } else if (orders[i].products[j].status === 'Cancelled') { %>
+                                        <button class="remove-button btn btn-danger" disabled>Order Cancelled</button>
+                                    <% } else if (orders[i].products[j].status === 'Return Requested') { %>
+                                        <button class="cancel-requested-button btn btn-warning" disabled>Return Requested</button>
+                                    <% } else { %>
+                                        <button class="remove-button btn btn-danger"  onclick="confirmCancelOrder('<%= orders[i]._id %>')">Cancel Order</button>
+                                    <% } %>
+                                <% } %>
+                            </td>
+                       
+                    <% } %>
+                  
+                        <!-- <td style="text-align: right;"><a href="/orderView/<%= orders[i]._id %>" class="view-more-button btn btn-info">View More</a></td> -->
+                      </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div> 
+    <!-- Table Ending -->
+    <!-- <% const currentPage=0 %>
+
+
+<!-- <% } else { %> -->
+  <!-- Add this section where you want to display the reminder -->
+<!-- <div class="container mt-4">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">Your Order History is Empty!</h4>
+    <p>Looks like you haven't Order any items yet. Browse our products and start shopping!</p>
+    <hr>
+    <p class="mb-0">If you have any questions or need assistance, feel free to contact our support team.</p>
+  </div>
+</div>
+<% } %> -->
+    <!-- Start Footer Area -->
+    
+    <script>
+        function confirmRemoveOrder(orderId) {
+          var confirmation = window.confirm("Are you sure you want to Remove this order?");
+      
+          if (confirmation) {
+            // If the user clicks "OK" in the confirmation dialog, proceed with the removal
+            window.location.href = '/removeOrder/' + orderId;
+          } else {
+            // If the user clicks "Cancel" or closes the dialog, do nothing
+          }
+        } 
+
+        function confirmCancelOrder(orderId) {
+          var confirmation = window.confirm("Are you sure you want to Cancel this order?");
+      
+          if (confirmation) {
+            // If the user clicks "OK" in the confirmation dialog, proceed with the removal
+            window.location.href = '/cancelOrder/' + orderId;
+          } else {
+            // If the user clicks "Cancel" or closes the dialog, do nothing
+          }
+        } 
+
+        function confirmReturnOrder(orderId) {
+          var confirmation = window.confirm("Are you sure you want to Return this order?");
+      
+          if (confirmation) {
+            // If the user clicks "OK" in the confirmation dialog, proceed with the removal
+            window.location.href = '/returnOrder/' + orderId;
+          } else {
+            // If the user clicks "Cancel" or closes the dialog, do nothing
+          }
+        } 
+      </script>
+      
+<!-- Include SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const logoutButton = document.getElementById("logout-button");
+
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent the default link behavior
+
+        // Use SweetAlert2 for confirmation
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Do you really want to logout?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Yes, logout",
+          cancelButtonText: "No, cancel"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If the user confirms, redirect to the logout page
+            window.location.href = "/logout";
+          }
+        });
+      });
+    }
+  });
+</script>
+    <script src="/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+     crossorigin="anonymous"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
+    <script src="/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/jquery.sticky.js"></script>
+    <script src="/js/nouislider.min.js"></script>
+    <script src="/js/countdown.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <!--gmaps Js-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+    <script src="/js/gmaps.min.js"></script>
+    <script src="/js/main.js"></script>
+  
+</body>
+</html>

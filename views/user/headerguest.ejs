@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <style>
+        /* Your existing styles */
+        
+        .right {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+        
+        .right form {
+            margin-right: 10px;
+            /* Adjust the margin as needed */
+        }
+        
+        .right .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .right .nav-item {
+            margin-right: 10px;
+            /* Adjust the margin as needed */
+        }
+        
+        .form-control-header {
+            width: 45px;
+            height: 30px;
+            border-radius: 20px;
+            border: none;
+            background: rgb(235, 235, 235);
+        }
+        
+        .navbar {
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media screen and (min-width: 992px) {
+            .navbar {
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+            .navbar .nav-item {
+                padding: .5rem .5rem;
+                margin: 0 .25rem;
+            }
+        }
+        /* Adjust the font size for specific icons */
+        
+        .fa-shopping-cart,
+        .fa-user-circle,
+        .fa-heart,
+        .fa-sign-out {
+            font-size: 28px;
+            color: rgb(66, 95, 117);
+        }
+        
+        .nav-link-header,
+        .name {
+            font-size: 20px;
+            color: black;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    </style>
+
+    <!-- Your existing stylesheets and scripts -->
+
+</head>
+
+<body>
+
+    <!-- Your existing HTML structure -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+        <a class="navbar-brand" href="/home" style="color: black;font-size: 50px;margin-left: 2%;font-weight: 500;">TJ Watches</a>
+
+        <a class="nav-link-header text-dark" href="/user/Mens" style="margin-left: 2%;">
+            <!-- <i class="fa fa-male"></i> -->
+            MEN
+        </a>
+
+        <a class="nav-link-header text-dark" href="/user/Women" style="margin-left: 2%;">
+            <!-- <i class="fas fa-female" ></i> -->
+            FEMALE
+        </a>
+
+        <!-- Your existing content -->
+
+        <div class="right" style="margin-right: 3%;">
+            <form class="form-inline my-2 my-lg-0">
+                <!-- Your existing form content -->
+            </form>
+            <div>
+
+                <a href="/user/login" class="nav-item"><i class="fas fa-heart"></i></a>
+                <a href="/user/login" class="nav-item"><i class="fas fa-shopping-cart"></i></a>
+                <a href="/user/login" class="nav-item"><i class="fas fa-user-circle"></i></a>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Your existing content -->
+
+</body>
+
+</html>

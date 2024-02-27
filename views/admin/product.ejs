@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN MAIN</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.css" rel="stylesheet"> -->
+    <style>
+        tr:nth-child(even) {
+            background-color: #c3c0c0;
+            /* Light gray background for even rows */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+            /* White background for odd rows (optional) */
+        }
+
+        tbody {
+            border-width: 1px solid;
+        }
+    </style>
+</head>
+<link rel="stylesheet" href="/css/adminhome.css">
+
+<body>
+    <%-include('sidepanel') %>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #e3f2fd;">
+            <a class="navbar-brand" href="#">ADMIN</a>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="/admin/addproduct">Add Product</a>
+                    <a class="nav-item nav-link" href="/admin/edituser">Manage User</a>
+                    <!-- <a class="nav-item nav-link" onclick="logout()" href="/admin/adminLogout">Logout</a> -->
+                </div>
+
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="table col-">
+                    <table class="userTable bg-light border-primary" id="product-table"
+                        style="border-color: black; background-color: #e3f2fd;margin-left:8%">
+                        <thead style="cursor: pointer;">
+                            <tr style="max-height: 100px;">
+                                <th>Index</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Brand</th>
+                                <!-- <th>Size</th> -->
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <!-- <th>OfferPrice</th> -->
+                                <th>Image</th>
+                                <th style="align-items: center;">Update</th>
+                                <th>Availability</th>
+                                <th>Status</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody id="userTableId" style="max-height: 10%; border-width: 1;">
+                            <% if(productdatadetails.length> 0) { %>
+                                <% productdatadetails.forEach(function(userDetail, index) { %>
+                                    <tr style="border:2px solid">
+                                        <td>
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td>
+                                            <%= userDetail.name %>
+                                        </td>
+                                        <td>
+                                            <%= userDetail.description %>
+                                        </td>
+                                        <td>
+                                            <%= userDetail.category %>
+                                        </td>
+                                        <td>
+                                            <%= userDetail.brand %>
+                                        </td>
+                                        <!-- <td>
+                            <%= userDetail.size %>
+                        </td> -->
+                                        <td>
+                                            <%= userDetail.quantity %>
+                                        </td>
+                                        <td>
+                                            <%= userDetail.price %>
+                                        </td>
+                                        <!-- <td>
+                            <%= userDetail.offerprice %>
+                        </td> -->
+                                        <td>
+                                            <img src="/uploads/<%= userDetail.images[0] %>" alt="img"
+                                                style="width: 100px;height: 100px;background-size: cover;background-position: center;">
+                                            <!-- <img src="/<%= userDetail.images[0] %>" alt="img" style="width: 100px;height: 100px;background-size: cover;background-position: center;"> -->
+
+                                        </td>
+
+                                        <td>
+                                            <button class="btn-warning"><a
+                                                    href="/admin/updateProduct/<%= userDetail.id %>"
+                                                    style="text-decoration: none;">Update</a></button>
+                                        </td>
+                                        <td>
+                                            <button class="btn-light"><a href="/admin/deleteUser/<%= userDetail.id %>"
+                                                    style="text-decoration: none;">Change status</a></button>
+                                        </td>
+                                        <td>
+                                            <% if (userDetail.isDeleted) { %>
+                                                <span>soft deleted</span>
+                                                <% } else { %>
+                                                    available
+                                                    <% } %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% }%>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script>
+            function conform() {
+                const result = confirm('Are You Sure You Want to Delete?');
+                if (result == false) {
+                    event.preventDefault();
+                }
+            }
+
+            function logout() {
+                const result = confirm('Are You Sure You Want to Logout?');
+                if (result == false) {
+                    event.preventDefault();
+                }
+            }
+
+            function searchUser() {
+                const searchInput = document.getElementById('search').value
+
+                // Make an AJAX request to your server with the search query
+                fetch(`/admin/search?search=${searchInput}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the table with the received data
+                        const userTableBody = document.getElementById('userTableId');
+                        userTableBody.innerHTML = ''; // Clear the existing table data
+
+                        data.forEach((user, index) => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${user.username}</td>
+                        <td>${user.email}</td>
+                        <td>
+                            <a href="/admin/updateUser/${user._id}" class="btn btn-primary">Update</a>
+                            <a href="/admin/deleteUser/${user._id}" class="btn btn-primary">Delete</a>
+                        </td>
+                    <tr/>
+                    `;
+                            userTableBody.appendChild(row);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } 'use strict'
+
+            function $(selector) {
+                return document.querySelector(selector)
+            }
+
+            function find(el, selector) {
+                let finded
+                return (finded = el.querySelector(selector)) ? finded : null
+            }
+
+            function siblings(el) {
+                const siblings = []
+                for (let sibling of el.parentNode.children) {
+                    if (sibling !== el) {
+                        siblings.push(sibling)
+                    }
+                }
+                return siblings
+            }
+
+            const showAsideBtn = $('.show-side-btn')
+            const sidebar = $('.sidebar')
+            const wrapper = $('#wrapper')
+
+            showAsideBtn.addEventListener('click', function () {
+                $(`#${this.dataset.show}`).classList.toggle('show-sidebar')
+                wrapper.classList.toggle('fullwidth')
+            })
+
+            if (window.innerWidth < 767) {
+                sidebar.classList.add('show-sidebar');
+            }
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 767) {
+                    sidebar.classList.remove('show-sidebar')
+                }
+            })
+        </script>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("table").DataTable({
+                    order: [0, 'asc']
+                });
+            });
+        </script>
+</body>
+
+</html>

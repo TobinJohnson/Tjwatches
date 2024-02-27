@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Form</title>
+    <style>
+        .body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            /* align-items: center; */
+            /* justify-content: center; */
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 70%;
+            margin-left: 15%;
+            line-height: 1.5em;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        checkbox {
+            margin-top: 8px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .checkbox-group input,
+    .checkbox-group label {
+        margin-bottom: 0;
+    }
+        button:hover {
+            background-color: #45a049;
+        }
+        .select-group select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 5px; /* Adjust the margin between the checkbox and the dropdown */
+    }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/js/bootstrap-select.min.js"></script>
+    
+</head>
+<%- include('sidepanel') %>
+
+<body class="body">
+    <form action="/offer/admin/addofferproduct" method="post">
+        <h1>Add Offer </h1>
+
+        <label for="type">Type:</label>
+        <input type="text" name="type" required>
+
+        <label for="code">Code:</label>
+        <input type="text" name="code" required>
+
+        <label for="discount">Discount:</label>
+        <input type="number" name="discount" required>
+
+        <!-- <label for="startDate">Start Date:</label>
+        <input type="date" name="startDate" required> -->
+
+        <label for="endDate">End Date:</label>
+        <input type="date" name="endDate" required>
+
+        <div class="form-row">
+            <div class="form-column">
+                <label for="applicableProducts">Applicable Products:</label>
+                <div class="select-group">
+                    <select id="applicableProducts" name="applicableProducts" class="selectpicker" multiple data-style="btn-secondary">
+                        <% products.forEach(product => { %>
+                            <option value="<%= product._id %>"><%= product.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        // Initialize Bootstrap-Select
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
+</body>
+</html>

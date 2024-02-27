@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+  <head>
+    <!-- Mobile Specific Meta -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png" />
+    <!-- Author Meta -->
+    <meta name="author" content="CodePixar" />
+    <!-- Meta Description -->
+    <meta name="description" content="" />
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="" />
+    <!-- meta character set -->
+    <meta charset="UTF-8" />
+    <!-- Site Title -->
+    <title>TJ Watches</title>
+    <!--
+		CSS
+		============================================= -->
+        <link rel="stylesheet" href="/css/footeruser.css">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  </head>
+
+  <body>
+
+
+<!-- Start Header Area -->
+<%-include('header') %>
+<!-- End Header Area -->
+
+ <!-- Wishlist  summary -->
+ <section class="bg-light my-5" style="margin-top: 7rem !important">
+  <div class="container">
+    <div class="row">
+      <h4 class="card-title mb-4">WishList</h4>
+      <div class="row">
+        <div class="col-lg-12">
+            <% if (wishlistItems.length > 0) { %>
+              <table class="table table-bordered" style="align-items: end;">
+                <!-- Table Header -->
+                <thead class="table-dark">
+                  <tr >
+                    <th scope="col">Index</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Dial Size</th>
+                    <th scope="col">Dial Shape</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <p id="user" style="visibility: hidden;";><%= user_id %></p>
+
+                    <% productDetails.forEach((item, index) => { %>
+
+                      <td><%= index + 1 %></td>
+                      <td>
+                        <img src="/uploads/<%= item.images[2] %>" class="border rounded" style="width: 96px; height: 96px;" />
+                      </td>
+                      <td><a href="#" class="nav-link"><%= item.name %><p id="product" style="visibility: hidden;"; ><%= item._id %></p></a></td>
+                      <td><a href="#" class="nav-link"><%= item.category %></a></td>
+                      <td><a href="#" class="nav-link"><%= item.size %></a></td>
+                      <td><a href="#" class="nav-link"><%= item.dialshape %></a></td>
+
+
+
+                   
+
+                      <td><%= item.price %></td>
+                      <td>
+                        <button type="button" class="btn btn-sm btn-danger remove-btn" onclick="removeFromWishlist('<%= item._id %>', '<%= user_id %>')">Remove</button>
+                        <button type="button" class="btn btn-primary addToCartButton" data-product-id="<%=item._id %>" data-user-id="<%= userid %>">Add to Cart</button>
+
+                        <!-- <button type="button" class="btn btn-sm btn-danger remove-btn">Move To Cart</button> -->
+
+                      </td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            <% } else { %>
+              <div class="container mt-4">
+                <div class="alert alert-info" role="alert">
+                  <h4 class="alert-heading">Your Wishlist is Empty!</h4>
+                  <p>Browse our products and start shopping!</p>
+                  <hr>
+                </div>
+              </div>
+            <% } %>
+          </div>
+          
+      
+        
+</div>
+</div>
+</section>
+ <!-- cart + summary -->
+ 
+ 
+  
+  <!-- Start Footer Area -->
+  <%-include('footer') %>
+
+
+  <!-- Include jQuery if not already included -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-dQ93IBn5LlpcMzPHnACmNzmG9lAUiMQgH7xGfeNqfEJdFMI5FU71W5jRTl6F2NfN"
+  crossorigin="anonymous">
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.addEventListener('click', async (event) => {
+            // Check if the clicked element has the class 'addToCartButton'
+            if (event.target.classList.contains('addToCartButton')) {
+                const button = event.target;
+                const productId = button.getAttribute('data-product-id');
+                const userId = button.getAttribute('data-user-id');
+                console.log('Product ID:', productId);
+                console.log('User ID:', userId);
+    
+                // Make a POST request to add the item to the cart
+                try {
+                    const response = await fetch(`/addtocartwishlist/${productId}/${userId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            productId,
+                            userId
+                        }),
+                    });
+    
+                    if (response.ok) {
+                        console.log('Item added to cart successfully!');
+    
+                        // Show SweetAlert2 notification
+                            await Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Product Added to Cart',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                timerProgressBar: true,
+                                customClass: {
+                                    popup: 'colored-toast',
+                                }
+                            });
+                            const removeFromWishlistResponse = await fetch(`/user/wishlist/remove/${productId}/${userId}`, {
+                        method: 'POST'
+                    });
+
+                    const removeFromWishlistData = await removeFromWishlistResponse.json();
+
+                    if (removeFromWishlistResponse.ok && removeFromWishlistData.status === 'success') {
+                        console.log('Item removed from wishlist successfully!');
+
+                    } else {
+                        console.error('Failed to remove item from wishlist:', removeFromWishlistData.message);
+                    }
+                    
+                    // Reload the page to reflect changes
+                    window.location.reload();
+                        } else {
+                            console.error('Failed to add item to cart');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+        });
+    });
+</script> 
+<script>
+  async function removeFromWishlist(productId, userId) {
+    const confirmResult = await Swal.fire({
+        title: 'Confirmation',
+        text: 'Do you really want to remove this item from the wishlist?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove',
+        cancelButtonText: 'No, cancel'
+    });
+
+    if (confirmResult.isConfirmed) {
+      try {
+          const response = await fetch(`/user/wishlist/remove/${productId}/${userId}`, { method: 'POST' });
+          const data = await response.json();
+          console.log(data+"data");
+          
+          if (data.status === 'success') {
+            
+            window.location.reload();
+  //        
+          }
+      } catch (error) {
+          console.error('Error during fetch request:', error);
+      }
+  }}
+</script>
+
+
+  <script>
+    
+  
+
+
+
+
+// Function to handle cart update (increase/decrease)
+function handleCartUpdate(button, action) {
+
+const userElement = document.getElementById('user');
+const userId= userElement.innerHTML;
+const itemId = button.closest('tr').querySelector('#product').innerHTML;
+
+
+
+
+  fetch(`/user/cart/update/${userId}/${itemId}/${action}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+      return response.json();
+    })
+    .then(data => {
+      updateUIAfterCartUpdate(itemId, data);
+      const updatedValue = data.updatedValue;
+
+    })
+    .catch(error => {
+      console.error('Error updating quantity', error);
+    });
+}
+
+// Function to handle cart removal
+function handleCartRemove(button) {
+    const userElement = document.getElementById('user');
+    const userId= userElement.innerHTML;
+    const itemId = button.closest('tr').querySelector('#product').innerHTML;
+
+
+  fetch(`/user/cart/remove/${userId}/${itemId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+      return response.json();
+      })
+      .then(data => {
+        updateUIAfterCartRemove(itemId);
+    })
+    .catch(error => {
+      console.error('Error removing product from cart', error);
+    });
+}
+
+function updateUIAfterCartUpdate(itemId, data) {
+  const quantityInput = document.querySelector(`#product-${itemId} .quantity-input`);
+  const itemQuantityElement = document.querySelector(`#product-${itemId} #item-quantity`);
+
+  if (quantityInput) {
+    quantityInput.value = data.cartItems.find(item => item.productDetails._id === itemId).quantity;
+  }
+  if (itemQuantityElement) {
+      itemQuantityElement.textContent = data.updatedItemQuantity; // Update the live quantity
+    }  
+  document.getElementById('totalPrice').textContent = `₹${data.totalPrice.toFixed(2)}`;
+  document.getElementById('finalTotalPrice').textContent = `₹${data.totalPrice.toFixed(2)}`;
+  document.getElementById('quantity').textContent = `₹${data.updatedValue.toFixed(2)}`;
+
+  // Update other relevant UI elements
+}
+
+function updateUIAfterCartRemove(itemId) {
+  const removedItem = document.getElementById(`product-${itemId}`);
+  if (removedItem) {
+    removedItem.remove();
+  }
+  // Update other relevant UI elements
+}
+
+
+  </script>
+  
+<!-- Include SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const logoutButton = document.getElementById("logout-button");
+
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent the default link behavior
+
+        // Use SweetAlert2 for confirmation
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Do you really want to logout?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Yes, logout",
+          cancelButtonText: "No, cancel"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If the user confirms, redirect to the logout page
+            window.location.href = "/logout";
+          }
+        });
+      });
+    }
+  });
+</script>
+
+
+<!-- ================ End footer Area ================= -->
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+ crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

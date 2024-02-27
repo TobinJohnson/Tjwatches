@@ -1,0 +1,346 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+body{
+    line-height: 1.5;
+}
+.container-fluid{
+    display: flex;
+}
+.card-wrapper{
+    max-width: 1100px;
+    margin: 0 5%;
+}
+img{
+    width: 100%;
+    display: block;
+}
+.card-wrapper{
+    margin-top: 2%
+}
+.size{
+    font-size: 1.5em;
+}
+
+.img-display{
+    overflow: hidden;
+}
+.img-showcase{
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.img-showcase img{
+    min-width: 100%;
+}
+.img-select{
+    display: flex;
+}
+.img-item{
+    margin: 0.3rem;
+}
+.img-item:nth-child(1),
+.img-item:nth-child(2),
+.img-item:nth-child(3){
+    margin-right: 0;
+}
+.img-item:hover{
+    opacity: 0.8;
+}
+.product-content{
+    padding: 2rem 1rem;
+}
+.product-title{
+    font-size: 2rem;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: relative;
+    color: #12263a;
+    margin: 1rem 0;
+}
+.product-title::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 80px;
+    background: #12263a;
+}
+.product-link{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    background: #256eff;
+    color: #fff;
+    padding: 0 0.3rem;
+    transition: all 0.5s ease;
+}
+.product-link:hover{
+    opacity: 0.9;
+}
+.product-rating{
+    color: #ffc107;
+}
+.product-rating span{
+    font-weight: 600;
+    color: #252525;
+}
+.product-price{
+    margin: 1rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+.product-price span{
+    font-weight: 400;
+}
+.last-price span{
+    color: #f64749;
+    text-decoration: line-through;
+}
+.new-price span{
+    color: #256eff;
+}
+.product-detail h2{
+    text-transform: capitalize;
+    color: #12263a;
+    padding-bottom: 0.6rem;
+}
+.product-detail p{
+    font-size: 0.9rem;
+    padding: 0.3rem;
+    opacity: 0.8;
+}
+.product-detail ul{
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+.product-detail ul li{
+    margin: 0;
+    list-style: none;
+    background: url(https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/checked.png) left center no-repeat;
+    background-size: 18px;
+    padding-left: 1.7rem;
+    margin: 0.4rem 0;
+    font-weight: 600;
+    opacity: 0.9;
+}
+.product-detail ul li span{
+    font-weight: 400;
+}
+.purchase-info{
+    margin: 1.5rem 0;
+}
+.purchase-info input,
+.purchase-info .btn{
+    border: 1.5px solid #ddd;
+    border-radius: 25px;
+    text-align: center;
+    outline: 0;
+    margin-right: 0.2rem;
+    margin-bottom: 1rem;
+    width: 45%;
+    height: 45px;
+    font-size: 1.5em;
+}
+.purchase-info input{
+    width: 60px;
+}
+.purchase-info .btn{
+    cursor: pointer;
+    color: #fff;
+}
+.purchase-info .btn:first-of-type{
+    background: #256eff;
+}
+.purchase-info .btn:last-of-type{
+    background: #f64749;
+}
+.purchase-info .btn:hover{
+    opacity: 0.9;
+}
+.social-links{
+    display: flex;
+    align-items: center;
+}
+.social-links a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #000;
+    border: 1px solid #000;
+    margin: 0 0.2rem;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.5s ease;
+}
+.social-links a:hover{
+    background: #000;
+    border-color: transparent;
+    color: #fff;
+}
+
+@media screen and (min-width: 992px){
+    .card{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.5rem;
+    }
+    .card-wrapper{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .product-imgs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .product-content{
+        padding-top: 0;
+    }
+}
+/* 
+
+#zoom-container {
+    position: relative;
+    display: inline-block;
+   }
+   
+   #zoom-container:hover #zoom-glass {
+    visibility: visible;
+   } */
+
+
+
+
+
+   .image-zoom-container {
+    /* position: relative;
+    overflow: hidden; */
+    /* width: 300px; Set width of the image container */
+    height: 300px; /* Set height of the image container */
+  }
+  
+  #product-image {
+    width: 100%; /* Make sure the image fills its container */
+    height: auto;
+  }
+  
+  .zoom {
+    position: absolute;
+    width: 50vh; /* Width of the zoomed area */
+    height: 50%; /* Height of the zoomed area */
+    background: rgba(0, 0, 0, 0.1); /* Background color of the zoomed area */
+    border: 1px solid #ccc; /* Border around the zoomed area */
+    display: none;
+    z-index: 1;
+  }
+  
+
+
+
+  @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
+
+
+  
+  a {
+    text-decoration: none;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #dbe1e8;
+    border-radius: 1rem;
+    font-weight: bold;
+
+  }
+  
+  header a.logo {
+    font-weight: bold;
+    color: #0460bc;
+  }
+  
+  nav ul {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+
+  }
+  
+  nav ul li a {
+    color: #000;
+    margin: 5em;
+
+  }
+  
+  nav ul li a:hover {
+    color: #0460bc;
+    transition: all 0.3s;
+  }
+  
+
+  button {
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #c3ccd7;
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+    border-radius: 0.4em;
+    color: #000;
+    font-size: 1.8rem;
+  }
+  
+  button p {
+    margin: 0;
+  }
+  
+  button:hover {
+    color: #fff;
+    background-color: #0460bc;
+  }
+  
+  span {
+      /* width: 450px; */
+      height: 35px;
+      margin-top: 9.7em;
+      margin-left: .2em;
+  }
+  
+  .spTwo {
+      width: 300px;
+      margin-top: 2.4em;
+  } 
+  
+
+
+
+
+
+
+ 

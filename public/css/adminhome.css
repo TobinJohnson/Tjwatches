@@ -1,0 +1,30 @@
+table{
+    margin-left: 10%;
+}
+
+
+
+table, th, td ,tr,thead{
+    border: 1px solid;
+    text-align: center;
+    align-items: center;
+  
+  }
+
+  /* thead {
+text-align: center; 
+margin-left: 10px; } */
+
+th{
+    align-items: center;
+}
+
+#product-table th, #product-table td {
+    border: 1px solid #ccc; /* Optional: For cell borders */
+    padding: 8px; /* Adjust padding as needed */
+    max-width: 200px; /* Set the maximum width of each cell */
+    word-wrap: break-word; /* Enable text wrapping within cells */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Show ellipsis for overflow text */
+    white-space: normal; /* Allow wrapping */
+  }

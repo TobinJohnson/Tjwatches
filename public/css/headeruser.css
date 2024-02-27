@@ -1,0 +1,35 @@
+/* .img{
+    max-width: 100%;
+    height: auto;
+} */
+h1 {
+    text-align: center;
+    margin: 0px auto;
+    display: block;
+    margin: 15px 0px ;
+    
+}
+.sicons{
+    height: 15px;
+}
+
+.form-control{
+    display: block;
+    flex-direction: row;
+    gap: 30px;
+  
+
+}
+* {
+    margin: 0;
+    padding: 0;
+  } */
+   /* a {
+    color: #fff;
+    text-decoration: none;
+  } */
+  .nav-link .navbar-brand{
+    color: #fff;
+    text-decoration: none;
+  } 
+

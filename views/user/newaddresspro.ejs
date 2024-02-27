@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #newAddressForm {
+  max-width: 400px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+#newAddressForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+}
+
+#newAddressForm input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#submitAddress {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <h3>Add New Address</h3>
+                    <form id="newAddressForm" action="/profile/addAddress" method="POST" >
+                       
+                      <label for="housename" class="form-label" style="font-size: 1.3rem;">House Name:</label>
+                      <input type="text" id="housename" name="housename" required>
+            
+                      <label for="streetname" class="form-label" style="font-size: 1.3rem;">Street Name:</label>
+                      <input type="text" id="streetname" name="streetname" required>
+
+                      <label for="postoffice" class="form-label" style="font-size: 1.3rem;">Post Office:</label>
+                      <input type="text" id="postoffice" name="postoffice" required>
+
+                      <label for="city" class="form-label" style="font-size: 1.3rem;">City:</label>
+                      <input type="text" id="city" name="city" class="inpu" required>
+
+                      <label for="state" class="form-label" style="font-size: 1.3rem;">State:</label>
+                      <input type="text" id="state" name="state" required>
+
+                      <label for="pincode" class="form-label" style="font-size: 1.3rem;">Pincode:</label>
+                      <input type="text" id="pincode" name="pincode" required>
+                      <button type="submit" id="submitAddress" class="btn btn-primary mt-3">Add Address</button>
+                    </form>
+                  </div>
+                  
+</body>
+</html>

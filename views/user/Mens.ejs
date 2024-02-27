@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Product Category</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <style>
+        .side-content {
+            margin-top: 50px;
+            font-size: 1.2em;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/usermens.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/332a215f17.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Breadcrumbs -->
+    <%-include('header') %>
+        <!-- Sidebar -->
+        <section class="category">
+            <div class="container" style="margin-left: 3%;">
+                <div class="row" style="margin-right: -15px;">
+                    <div class="col-lg-12" style="display: flex;">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="product-top d-flex justify-content-between align-items-center">
+                                    <div class="product-sec product-item">
+                                        <h2 class="my-5">Watches</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Filter Section -->
+                            <div class="col-lg-3">
+                                <h4>Filter Settings</h4>
+                                <form id="filterForm" method="post" action="/shopfilter">
+                                    <!-- <form id="user_widget_search_form" class="user_widget_search_form" method="post" action="/user/Mens"> -->
+
+
+
+
+                                    <div class="form-group mt-3">
+                                        <label for="user_gender">Brands</label>
+                                        <select class="form-control custom-select" id="user_category" name="brand">
+                                            <!-- <option >Select</option> -->
+                                            <option selected>Select Category</option>
+
+                                            <option value="Rolex">Rolex</option>
+                                            <!-- <option value="Hublot">Hublot</option> -->
+                                            <option value="Seiko">Seiko</option>
+                                            <!-- <option value="GC">GC</option> -->
+                                            <!-- <option value="Guess">Guess</option> -->
+                                            <!-- <option value="Timex">Timex</option> -->
+
+                                        </select>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="user_sort">Sort</label>
+                                        <select class="form-control custom-select" id="user_sort" name="sort">
+                                            <option>low-high</option>
+                                            <option>high-low</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_filter">low Price</label>
+                                        <select class="form-control custom-select" id="user_filter" name="lowprice">
+                                            <option>0</option>
+                                            <option>5000</option>
+                                            <option>10000</option>
+                                            <option>20000</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_filter">High price</label>
+                                        <select class="form-control custom-select" id="user_filtert" name="highprice">
+                                            <option>30000</option>
+                                            <option>40000</option>
+                                            <option>50000</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <button type="onclick" id="submitFilter"
+                                            class="btn btn-block btn-primary">Submit</button>
+                                    </div>
+                                </form>
+
+
+                            </div>
+
+                            <div class="col-lg-9">
+                                <!-- Card Format -->
+                                <div class="row d-flex column-gap-4 ms-1 mt-1 mb-1 products-container">
+                                    <% products.forEach(function(products) { %>
+                                        <div class="card col-lg-3 text-center "
+                                            style="width: 100em; margin: 10px 0.8%;">
+                                            <button class="btn btn-outline-danger position-absolute top-0 end-0"
+                                                style="border: none; background-color: transparent;z-index: 100;"
+                                                onclick="toggleHeart(this)" data-product-id="<%= products.id %>"
+                                                data-user-id="<%= userid %>">
+                                                <i class="far fa-heart" id="heartIcon"></i>
+                                            </button>
+
+                                            <img src="/uploads/<%= products.images[2] %>"
+                                                style="width:100%;height: 300px" class="card-img-top" alt="...">
+                                            <div class="card-body">
+
+                                                <h5 class="card-title">
+                                                    <%= products.name %>
+                                                </h5>
+                                                <p class="card-text">
+                                                    <%= products.category %>
+                                                        <%= products.description %>
+                                                </p>
+                                                <!-- <p class="card-text">Rs
+                                            <%= products.price %>
+                                        </p> -->
+                                                <% if (products.offerprice < products.price) { %>
+                                                    <!-- Show offer price with a strikethrough -->
+                                                    <p class="card-text">
+                                                        <span style="text-decoration: line-through;">Rs <%=
+                                                                products.price %></span><br>
+                                                        <b> Rs <%= products.offerprice %> (Offer Price)</b>
+                                                    </p>
+                                                    <% } else { %>
+                                                        <!-- Show the regular price -->
+                                                        <b>
+                                                            <p class="card-text">Rs <%= products.price %>
+                                                            </p>
+                                                        </b>
+                                                        <% } %>
+                                                            <input type="hidden" id="wishlistStatus_<%= products.id %>"
+                                                                value="<%= products.inWishlist %>">
+                                                            <!-- <a href="/user/productdesc/<%=products.id %>" class="btn btn-primary ">Buy Now</a> -->
+                                                            <a href="/user/productdesc/<%=products.id %>"
+                                                                style="margin: 5px 0px;" class="btn btn-primary ">View
+                                                                More</a>
+
+                                                            <!-- <a href="/user/cartcopylatest/<%=userid %>" class="btn btn-primary ">Cart</a> -->
+                                                            <!-- <form id="addToCartForm" action="/addtocart/<%=products.id %>/<%= userid %>" method="POST">
+                                            <button type="submit"  class="btn btn-primary" data-product-id="<%= products.id %>" data-user-id="<%= userid %>">Add to Cart</button>
+                                        </form> -->
+                                                            <form id="addToCartForm" action="#">
+                                                                <button type="button"
+                                                                    class="btn btn-primary addToCartButton"
+                                                                    data-product-id="<%=products.id %>"
+                                                                    data-user-id="<%= userid %>">Add to Cart</button>
+                                                            </form>
+
+                                            </div>
+
+
+                                        </div>
+                                        <% }) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.addEventListener('click', async (event) => {
+                    // Check if the clicked element has the class 'addToCartButton'
+                    if (event.target.classList.contains('addToCartButton')) {
+                        const button = event.target;
+                        const productId = button.getAttribute('data-product-id');
+                        const userId = button.getAttribute('data-user-id');
+                        console.log('Product ID:', productId);
+                        console.log('User ID:', userId);
+
+                        // Make a POST request to add the item to the cart
+                        try {
+                            const response = await fetch(`/addtocart/${productId}/${userId}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    productId,
+                                    userId
+                                }),
+                            });
+
+                            if (response.ok) {
+                                console.log('Item added to cart successfully!');
+
+                                // Show SweetAlert2 notification
+                                await Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Product Added to Cart',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    timerProgressBar: true,
+                                    customClass: {
+                                        popup: 'colored-toast',
+                                    }
+                                });
+                            } else {
+                                console.error('Failed to add item to cart');
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+            async function toggleHeart(button) {
+                // Get the heart icon element
+                const heartIcon = button.querySelector('#heartIcon');
+                const productId = button.getAttribute('data-product-id');
+                const userId = button.getAttribute('data-user-id');
+                const wishlistStatusElement = document.getElementById(`wishlistStatus_${productId}`);
+
+                // Check if the product is already in the wishlist
+                const isInWishlist = heartIcon.classList.contains('fas');
+
+
+
+
+                try {
+                    const response = await fetch(`/user/wishlist/toggle/${productId}/${userId}`, { method: 'POST' });
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        // Toggle the filled class and change button color
+                        heartIcon.classList.toggle('fas', !isInWishlist);
+                        heartIcon.classList.toggle('far', isInWishlist);
+                        heartIcon.style.color = heartIcon.classList.contains('fas') ? 'red' : 'inherit';
+
+                        const action = isInWishlist ? 'removed from' : 'added to';
+                        const alertTitle = `Product added to wishlist`;
+
+                        await Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            title: alertTitle,
+                            showConfirmButton: false,
+                            timer: 1500,
+                            timerProgressBar: true,
+                            customClass: {
+                                popup: 'colored-toast',
+                            }
+                        });
+                        // Toggle the wishlist status
+                        wishlistStatusElement.value = !isInWishlist;
+
+
+
+
+                    } else {
+                        console.error('Failed to toggle wishlist status');
+                    }
+                } catch (error) {
+                    console.error('Error during fetch request:', error);
+                }
+            }
+        </script>
+        <script>
+            $(document).ready(function () {
+                // Function to update the product list and pagination
+                function updateProductListAndPagination(products, currentPage, totalPages) {
+                    updateProductList(products);
+                    updatePagination(currentPage, totalPages);
+                }
+
+                // Function to update the pagination
+                function updatePagination(currentPage, totalPages) {
+                    var paginationContainer = $('.pagination');
+
+                    // Clear existing pagination
+                    paginationContainer.empty();
+
+                    // Append the updated pagination
+                    if (currentPage > 1) {
+                        paginationContainer.append('<a href="#" class="prev-arrow" aria-label="Previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>');
+                    }
+
+                    for (let i = 1; i <= totalPages; i++) {
+                        paginationContainer.append(`<a href="#" class="${i === currentPage ? 'active page-link' : 'page-link'}">${i}</a>`);
+                    }
+
+                    if (currentPage < totalPages) {
+                        paginationContainer.append('<a href="#" class="next-arrow" aria-label="Next"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>');
+                    }
+                }
+
+                // Function to update the product list on the page
+                function updateProductList(products) {
+                    var productContainer = $('#productContainer');
+
+                    // Clear existing products
+                    productContainer.empty();
+
+                    // Append the updated product list
+                    products.forEach(function (product) {
+                        // Create HTML for each product
+                        var productHTML = `<div class="card text-center" style="width: 100em; margin: 10px ;">
+                                    <button class="btn btn-outline-danger top-0 end-0" style="border: none; background-color: transparent;z-index: 100;" onclick="toggleHeart(this)" data-product-id="<%= products.id %>" data-user-id="<%= userid %>">
+                                        <i class="far fa-heart" id="heartIcon"></i>
+                                    </button>
+                            
+                                    <img src="/<%= products.images %>" style="width:100%;height: 300px" class="card-img-top" alt="...">
+                                    <div class="card-body">
+            
+                                        <h5 class="card-title">
+                                            <%= products.name %>
+                                        </h5>
+                                        <p class="card-text">
+                                            <%= products.category %>
+                                            <%= products.description %>
+                                        </p>
+                                        <!-- <p class="card-text">Rs
+                                            <%= products.price %>
+                                        </p> -->
+                                        <% if (products.offerprice < products.price) { %>
+                                            <!-- Show offer price with a strikethrough -->
+                                            <p class="card-text">
+                                                <span style="text-decoration: line-through;">Rs <%= products.price %></span><br>
+                                               <b> Rs <%= products.offerprice %> (Offer Price)</b>
+                                            </p>
+                                        <% } else { %>
+                                            <!-- Show the regular price -->
+                                       <b><p class="card-text">Rs <%= products.price %></p></b> 
+                                        <% } %>
+                                        <input type="hidden" id="wishlistStatus_<%= products.id %>"  value="<%= products.inWishlist %>">
+                                        <!-- <a href="/user/productdesc/<%=products.id %>" class="btn btn-primary ">Buy Now</a> -->
+                                        <a href="/user/productdesc/<%=products.id %>" style="margin: 5px 0px;" class="btn btn-primary ">View More</a>
+            
+                                        <!-- <a href="/user/cartcopylatest/<%=userid %>" class="btn btn-primary ">Cart</a> -->
+                                        <!-- <form id="addToCartForm" action="/addtocart/<%=products.id %>/<%= userid %>" method="POST">
+                                            <button type="submit"  class="btn btn-primary" data-product-id="<%= products.id %>" data-user-id="<%= userid %>">Add to Cart</button>
+                                        </form> -->
+                                        <form id="addToCartForm" action="#">
+                                            <button type="button" class="btn btn-primary addToCartButton" data-product-id="<%=products.id %>" data-user-id="<%= userid %>">Add to Cart</button>
+                                        </form>
+                                    </div>
+      
+    `;
+
+                        // Append the product to the container
+                        productContainer.append(productHTML);
+                    });
+                }
+
+                // Handle form submission
+                $('#user_widget_search_form').submit(function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+
+                    // Get form data
+                    var formData = {
+                        brand: $('#user_category').val(),
+                        sort: $('#user_sort').val(),
+                        lowprice: $('#user_filter').val(),
+                        highprice: $('#user_filtert').val(),
+                        page: 1, // Reset page to 1 when filtering
+                    };
+
+                    // AJAX request to the server
+                    $.ajax({
+                        type: 'POST',
+                        url: '/shopfilterwomen',
+                        data: formData,
+                        dataType: 'json',
+                        success: function (response) {
+                            // Update the product list and pagination
+                            updateProductListAndPagination(response.products, response.currentPage, response.totalPages);
+                            console.log('Updating product list and pagination with:', response.products);
+                        },
+                        error: function (error) {
+                            console.error(error);
+                            // Handle error (display an error message, etc.)
+                        },
+                    });
+                });
+
+                // Handle pagination click
+                $(document).on('click', '.pagination a.page-link', function (event) {
+                    event.preventDefault();
+
+                    // Get page number from the clicked pagination link
+                    var page = $(this).text();
+
+                    // Update the form data with the selected page
+                    var formData = {
+                        brand: $('#user_category').val(),
+                        sort: $('#user_sort').val(),
+                        lowprice: $('#user_filter').val(),
+                        highprice: $('#user_filtert').val(),
+                        page: page,
+                    };
+
+                    // AJAX request to the server
+                    $.ajax({
+                        type: 'POST',
+                        url: '/shopfilterwomen',
+                        data: formData,
+                        dataType: 'json',
+                        success: function (response) {
+                            // Update the product list and pagination
+                            updateProductListAndPagination(response.products, response.currentPage, response.totalPages);
+                            console.log('Updating product list and pagination with:', response.products);
+                        },
+                        error: function (error) {
+                            console.error(error);
+                            // Handle error (display an error message, etc.)
+                        },
+                    });
+                });
+            });
+        </script>
+        <!-- <script>
+    // document.getElementById('submitFilter').addEventListener('click', async function () {
+        $(document).ready(function () {
+    $('#submitFilter').on('click', async function () {
+        $('#filterForm').submit(async function (event) {
+    event.preventDefault();
+
+    const brand = $('#user_category').val();
+    const sort = $('#user_sort').val();
+    const lowprice = $('#user_filter').val();
+    const highprice = $('#user_filtert').val();
+
+
+    try {
+        const response = await fetch('/user/Mens', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ brand, sort, lowprice, highprice }),
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            const productsContainer = document.querySelector('.products-container');
+
+            // Clear existing content in the container
+            productsContainer.innerHTML = '';
+
+            // Loop through the filtered products and create HTML elements for each
+            data.data.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('card', 'col-lg-3', 'text-center', 'position-relative');
+                productCard.style.width = '33%';
+                productCard.style.margin = '10px 0.8%';
+
+                // Create other necessary elements for your product card
+                const heartButton = document.createElement('button');
+                // Add other elements and attributes as needed
+
+                // Append the product card to the container
+                productsContainer.appendChild(productCard);
+                renderProducts(data.data);
+
+            });
+            function renderProducts(filteredProducts) {
+    const productsContainer = document.querySelector('.products-container');
+
+    // Clear existing content in the container
+    productsContainer.innerHTML = '';
+
+    // Loop through the filtered products and create HTML elements for each
+    filteredProducts.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('card', 'col-lg-3', 'text-center', 'position-relative');
+        productCard.style.width = '33%';
+        productCard.style.margin = '10px 0.8%';
+
+        // Create other necessary elements for your product card
+        const heartButton = document.createElement('button');
+        // Add other elements and attributes as needed
+
+        // Append the product card to the container
+        productsContainer.appendChild(productCard);
+    });
+}
+        } else {
+            console.error('Failed to fetch filtered products');
+        }
+    } catch (error) {
+        console.error('Error during fetch request:', error);
+    }
+})})});
+
+    </script> -->
+        <script>
+            async function toggleHeart(button) {
+                // Get the heart icon element
+                const heartIcon = button.querySelector('#heartIcon');
+                const productId = button.getAttribute('data-product-id');
+                const userId = button.getAttribute('data-user-id');
+                const wishlistStatusElement = document.getElementById(`wishlistStatus_${productId}`);
+
+                // Check if the product is already in the wishlist
+                const isInWishlist = heartIcon.classList.contains('fas');
+
+                try {
+                    const response = await fetch(`/user/wishlist/toggle/${productId}/${userId}`, { method: 'POST' });
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        // Toggle the filled class and change button color
+                        heartIcon.classList.toggle('fas', !isInWishlist);
+                        heartIcon.classList.toggle('far', isInWishlist);
+                        heartIcon.style.color = heartIcon.classList.contains('fas') ? 'red' : 'inherit';
+
+                        const action = isInWishlist ? 'removed from' : 'added to';
+                        const alertTitle = `Product added to wishlist`;
+
+                        await Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            title: alertTitle,
+                            showConfirmButton: false,
+                            timer: 1500,
+                            timerProgressBar: true,
+                            customClass: {
+                                popup: 'colored-toast',
+                            }
+                        });
+                        // Toggle the wishlist status
+                        wishlistStatusElement.value = !isInWishlist;
+
+
+
+
+                    } else {
+                        console.error('Failed to toggle wishlist status');
+                    }
+                } catch (error) {
+                    console.error('Error during fetch request:', error);
+                }
+            }
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/userlogin.css">
+
+</head>
+<body>
+    <main>
+        <section class="form-section">
+          <div class="form-wrapper">
+            <h1 class="title">Login</h1>
+            <% if(typeof logout !=='undefined' && logout !==null) { %>
+              <div class=" text-center" style="color: red;">
+                <%= logout %>
+              </div>
+              <% } %>
+            <form class="form" action="/admin/login" method="POST">
+              
+              <div class="form-group">
+                <label>
+                  <span class="sr-only">Email address</span>
+                  <input type="mail"  name="email"    placeholder="Email" class="form-input" >
+                </label>
+              </div>
+              <% if(typeof noemail !=='undefined' && noemail !==null) { %>
+                <div class=" text-center" style="color: red;">
+                  <%= noemail %>
+                </div>
+                <% } %>
+                <% if(typeof email !=='undefined' && email !==null) { %>
+                  <div class=" text-center" style="color: red;">
+                    <%= email %>
+                  </div>
+                  <% } %>
+              <div class="form-group">
+                <label>
+                  <span class="sr-only">Password</span>
+                  <input type="password"  name="password"  placeholder="Password" class="form-input" >
+                </label>
+              </div>
+
+              <% if(typeof password !=='undefined' && password !==null) { %>
+                <div class=" text-center" style="color: red;">
+                  <%= password %>
+                </div>
+                <% } %>
+              <div class="form-group">
+                <input type="submit" value="Submit" class="form-submit">
+              </div>
+<!--     
+              <footer class="form-footer">
+                  <div>
+                    <a href="#" class="form-link">Forgot password?</a>
+                  </div>
+                 
+              </footer> -->
+            </form>
+          </div>
+        </section>
+      </main>
+</body>
+</html>

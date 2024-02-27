@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Category List</title>
+  <!-- Add your CSS link here -->
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.categories {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- <h1>Category List</h1>
+  <form class="mt-5" action="/admin/addcategory" method="POST" enctype="multipart/form-data">
+
+  <div class="mb-3">
+    <label for="UrunAdi" class="form-label">Category Name</label>
+    <input type="text" class="form-control" name="categoryname" id="UrunAdi">
+    <button >Add</button>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-success text-white btn-outline-success form-control w-50 m-3" id="ekleButton" style="height: auto">Add Product</button>
+        </div>
+  </div>
+      </form>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categorydetails.forEach(category => { %>
+        <tr>
+          <td><%= category.name %></td>
+          <td>
+            <a href="/edit/<%= category.id %>">Edit</a> |
+            <a href="/delete/<%= category.id %>">Delete</a>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table> -->
+
+
+  <h1>Category Management</h1>
+    
+    <div class="categories">
+        <h2>Categories</h2>
+        <ul id="categoryList">
+            <!-- Category list will appear here -->
+        </ul>
+        <form id="addCategoryForm">
+            <input type="text" id="categoryInput" placeholder="Add new category">
+            <button type="submit">Add Category</button>
+        </form>
+        <form id="deleteCategoryForm">
+            <select id="deleteCategorySelect">
+                <!-- Dropdown options for categories will appear here -->
+            </select>
+            <button type="submit">Delete Category</button>
+        </form>
+    </div>
+
+    <!-- <script src="scripts.js"></script> -->
+    <script>const categoryList = document.getElementById('categoryList');
+      const addCategoryForm = document.getElementById('addCategoryForm');
+      const deleteCategoryForm = document.getElementById('deleteCategoryForm');
+      const categoryInput = document.getElementById('categoryInput');
+      const deleteCategorySelect = document.getElementById('deleteCategorySelect');
+      
+      // Example of existing categories (this could be retrieved from a database)
+      let categories = ['Category 1', 'Category 2', 'Category 3'];
+      
+      // Function to display categories
+      function displayCategories() {
+          categoryList.innerHTML = '';
+          deleteCategorySelect.innerHTML = '';
+          
+          categories.forEach(category => {
+              const li = document.createElement('li');
+              li.textContent = category;
+              categoryList.appendChild(li);
+      
+              const option = document.createElement('option');
+              option.value = category;
+              option.textContent = category;
+              deleteCategorySelect.appendChild(option);
+          });
+      }
+      
+      // Add category
+      addCategoryForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+          const newCategory = categoryInput.value.trim();
+          if (newCategory !== '') {
+              categories.push(newCategory);
+              displayCategories();
+              categoryInput.value = '';
+          }
+      });
+      
+      // Delete category
+      deleteCategoryForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+          const selectedCategory = deleteCategorySelect.value;
+          const index = categories.indexOf(selectedCategory);
+          if (index !== -1) {
+              categories.splice(index, 1);
+              displayCategories();
+          }
+      });
+      
+      // Display initial categories
+      displayCategories();
+        </script>
+</body>
+</html>

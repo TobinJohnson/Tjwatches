@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Place Order</title>
+        <!-- Favicon-->
+    <!-- Choose one version of Bootstrap and include it -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    
+    <!-- Include either Bootstrap JS or the bundle (not both) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Include jQuery (choose one version) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
+
+
+    <!-- Other stylesheet links -->
+  
+    <!-- Other script tags -->
+
+    <style>
+      body {
+        background-color: #ffffff;
+      }
+      .header_area{
+        position: fixed;
+        width: 100%;
+        top: 0;
+      }
+      .card {
+        border: none;
+      }
+      .image {
+        position: relative;
+      }
+      .image span {
+        background-color: blue;
+        color: #fff;
+        padding: 6px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        font-size: 16px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: -0px;
+        right: 0px;
+      }
+      .user-details h4 {
+        color: blue;
+      }
+      .ratings {
+        font-size: 50px;
+        font-weight: 600;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        color: #f9b43a;
+      }
+      .user-details span {
+        text-align: left;
+      }
+      .inputs label {
+        display: flex;
+        margin-left: 3px;
+        font-weight: 500;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+      .inputs input {
+        font-size: 18px;
+        height: 40px;
+        border: 2px solid #ced4da;
+      }
+      .inputs input:focus {
+        box-shadow: none;
+        border: 2px solid blue;
+      }
+      .about-inputs label {
+        display: flex;
+        margin-left: 3px;
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 4px;
+      }
+      .about-inputs textarea {
+        font-size: 18px;
+        height: 100px;
+        border: 2px solid #ced4da;
+        resize: none;
+      }
+      .about-inputs textarea:focus {
+        box-shadow: none;
+      }
+      .btn {
+        font-weight: 600;
+      }
+      .btn:focus {
+        box-shadow: none;
+      }
+      .hidden {
+    display: none;
+}
+
+
+
+.inpu{
+    width: 200px;
+}
+#newAddressFormContainer {
+  display: none;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+#newAddressForm label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+#newAddressForm input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+#submitAddress {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .full-container {
+    width: 125%;
+    margin-left: -20px;
+  }
+}
+    </style>
+      
+  </head>
+  <body>
+   <%- include('header') %>
+    <!-- End Header Area -->
+
+      <!-- content Start -->
+      <div class="container mt-3 full-container" style="background-color: rgb(255, 255, 255); color: black; ">
+        <div style="font-size: 2.0rem;display: flex; font-weight:700;  justify-content: center;">Order Summary</div>      
+        <form action="/placeOrder/<%= user_id %>" method="POST">
+            <% if (cart.length > 0) { %>
+                <table class="table" style="border: 3px solid; font-size: 1.5rem;">
+                    <thead>
+                        <tr>
+                            <th>Product Image</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                      <% let totalPrice = 0; %></span> 
+                        <% cart.forEach((cartitem) => { %>
+                            <tr >
+                                <td><img src="/<%= cartitem.productDetails.images[2] %>" class="border rounded" style="width: 156px; height: 96px;" />
+                                </td>
+                                <td><strong><%= cartitem.productDetails.name %></strong></td>
+                                <td>₹<%= cartitem.productDetails.price %></td>
+                                <td ><%= cartitem.quantity %></td>
+                            </tr>
+                            <% totalPrice += cartitem.productDetails.price * cartitem.quantity; %>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <p style= "font-size: 1.3rem;"><strong> Price: ₹<%= totalPrice.toFixed(2) %></strong></p>
+                <h3>User Addresses</h3>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+                    <% address.forEach(function(address, index) { %>
+                      <label style="flex: 0 0 48%; margin: 1%; border: 1px solid #ccc; padding: 10px; box-sizing: border-box; text-align: left;">
+                        <!-- <input type="radio" name="deliveryAddress" value="<%= index %>"> -->
+                        <input type="radio" name="deliveryAddress" value="<%= index %>" <%= index === 0 ? 'checked' : '' %>>
+
+                        <strong style="font-size: 1.2em;">Address <%= index + 1 %>-<%= address.housename %></strong><br>
+                        <strong>House Name:</strong> <%= address.housename %><br>
+                        <strong>Street Name:</strong> <%= address.streetname %><br>
+                        <strong>Post Office:</strong> <%= address.postoffice %><br>
+                        <strong>City:</strong> <%= address.city %><br>
+                        <strong>State:</strong> <%= address.state %><br>
+                        <strong>Pincode:</strong> <%= address.pincode %><br>
+                      </label>
+                    <% }); %>
+                    
+                  </div>
+                  <br>
+                  <div style="font-size: 1.5rem;">
+                    <strong>
+                      <a href="/addAddress/<%= user_id %>" style="text-decoration: none; color: black;">
+                        <span style="margin-right: 5px;">+</span> Add New Address
+                      </a>
+                    </strong>
+                  </div>
+                  <div>
+                    <div class="mb-3">
+                      <label for="payment" class="form-label">Payment Method</label>
+                      <select class="form-control" id="payment-options" name="paymentmode">
+                        <option value="cash-on-delivery">Cash On Delivery</option>
+                        <option value="net-banking">Net Banking</option>
+                      </select>
+                    </div>
+                    <div id="cashOnDeliveryButton" class="hidden">
+                      <button id="placeorder" class="btn btn-primary" type="submit">Cash On Delivery</button>
+                    </div>
+                    <!-- <fieldset>
+                      <legend style="font-size: 1.5rem; margin-top: 2%;">Payment Method</legend>
+                  
+                      <label for="cash-on-delivery" style="font-size: 1.5rem;">
+                        <input type="radio" id="cash-on-delivery" name="payment" value="cash-on-delivery" checked>
+                        Cash On Delivery
+                      </label>
+                  
+                      <label for="razorpay" style="font-size: 1.5rem;">
+                          <input type="radio" id="razorpay" name="payment" value="razorpay">
+                          Razorpay
+                      </label>
+                  </fieldset> -->
+
+                  <!-- Cash On Delivery Button -->
+
+                <!-- <button type="submit" id="cod-button" class="btn btn-primary mt-3">Proceed to Buy with COD</button> -->
+
+            <!-- <button type="button" id="cod-button" class="btn btn-primary mt-3">Proceed to Buy with COD</button> -->
+
+            <!-- Razorpay Button -->
+
+        
+            <% } else { %>
+                <p class="text-muted">No items in the cart.</p>
+            <% } %>
+            <!-- <div>
+              <button type="button" id="rzp-button1" class="btn btn-primary mt-3" style="display: none;">Proceed to Buy with Razorpay</button>
+
+            </div> -->
+        </form>
+        <div id="razorpayButton" class="hidden">
+          <button id="rzp-button1" class="btn btn-primary" type="submit">Pay with
+              Razorpay</button>
+      </div>
+    </div>
+    
+<script>
+    // Get the select element and payment buttons
+    const paymentOptions = document.getElementById('payment-options');
+    const cashOnDeliveryButton = document.getElementById('cashOnDeliveryButton');
+    const razorpayButton = document.getElementById('razorpayButton');
+  
+    // Function to show/hide buttons based on the selected payment option
+    function handlePaymentOptionChange() {
+      const selectedOption = paymentOptions.value;
+      if (selectedOption === 'cash-on-delivery') {
+        cashOnDeliveryButton.classList.remove('hidden');
+        razorpayButton.classList.add('hidden');
+        walletButton.classList.add('hidden');
+      } else if (selectedOption === 'net-banking') {
+        cashOnDeliveryButton.classList.add('hidden');
+        razorpayButton.classList.remove('hidden');
+        walletButton.classList.add('hidden');
+      }
+    }
+  
+    // Listen for changes to the selected payment option
+    paymentOptions.addEventListener('change', handlePaymentOptionChange);
+  
+    // Call the function once to set the initial state
+    handlePaymentOptionChange();
+  </script>
+  
+
+<script>
+  
+    // Existing logic for creating orderId and showing Razorpay button
+    let orderId;
+    let orderprice = price.getAttribute('totalPrice');
+    orderprice = Math.floor(Number(orderprice));
+    $(document).ready(function () {
+        var settings = {
+            url: "/create/orderId",
+            method: "POST",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: JSON.stringify({
+                amount: orderprice,
+            }),
+        };
+
+        //creates new orderId everytime
+        $.ajax(settings).done(function (response) {
+            orderId = response.order_id;
+            orderprice = response.orderprice; // Assign response.orderprice to orderprice
+            console.log(orderId+"orderId"+orderprice+"orderprice");
+            $("#rzp-button1").show();
+        });
+    });
+
+    // Existing logic for Razorpay button click
+    document.getElementById("rzp-button1").onclick = function (e) {
+        var options = {
+            key: "rzp_test_s5DyW0VfQFkKeu",
+            amount: orderprice * 100,
+            currency: "INR",
+            name: "TJ Watches",
+            description: "Online Payment",
+            image: "\img\logo.png",
+            order_id: orderId,
+            handler: function (response) {
+                // Create a form dynamically
+                var form = document.createElement("form");
+                form.method = "post";
+                form.action = "/placeOrder/<%= user_id %>"; // Router
+                
+ // Create an input element to hold the payment ID
+ var paymentIdInput = document.createElement("input");
+        paymentIdInput.type = "hidden";
+        paymentIdInput.name = "razorpay_payment_id";
+        paymentIdInput.value = response.razorpay_payment_id;
+
+        // Add the input element to the form
+        form.appendChild(paymentIdInput);
+
+        // Add hidden input fields for payment mode and address details
+        var paymentModeInput = document.createElement("input");
+        paymentModeInput.type = "hidden";
+        paymentModeInput.name = "paymentmode";
+        paymentModeInput.value =
+          document.getElementById("payment-options").value; // Assumes the payment mode is selected through a dropdown
+
+        form.appendChild(paymentModeInput);
+
+        var selectedAddressInput = document.querySelector(
+          'input[name="selectedAddress"]:checked'
+        );
+        if (selectedAddressInput) {
+          var addressIdInput = document.createElement("input");
+          addressIdInput.type = "hidden";
+          addressIdInput.name = "selectedAddress";
+          addressIdInput.value = selectedAddressInput.value;
+
+          form.appendChild(addressIdInput);
+        }
+
+        // Append the form to the body
+        document.body.appendChild(form);
+
+        // Submit the form
+        form.submit();
+      },
+    };
+
+    var rzp1 = new Razorpay(options);
+
+    rzp1.on("payment.failed", function (response) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+
+    rzp1.open();
+    e.preventDefault();
+  };
+   
+        var rzp1 = new Razorpay(options);
+
+        rzp1.on("payment.failed", function (response) {
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+        });
+
+        rzp1.open();
+        e.preventDefault();
+    
+   
+    </script>
+  
+<!-- Include SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const logoutButton = document.getElementById("logout-button");
+
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent the default link behavior
+
+        // Use SweetAlert2 for confirmation
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Do you really want to logout?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Yes, logout",
+          cancelButtonText: "No, cancel"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If the user confirms, redirect to the logout page
+            window.location.href = "/logout";
+          }
+        });
+      });
+    }
+  });
+</script>
+  </body>
+</html>
