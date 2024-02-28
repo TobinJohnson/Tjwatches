@@ -53,6 +53,11 @@ const checkSession = (req, res, next) => {
         res.redirect("/user/login");
     }
 };
+
+const rootget = (req, res) => {
+        res.redirect('/user/login')
+}
+
 const loginGet = (req, res) => {
     let User = req.session.user;
     // console.log(User);
@@ -2072,5 +2077,5 @@ module.exports = {
     updateQuantity,resendotp,otpvalidation, mailsender,homeAddCart,menFilterBrand,menFullFilter,menFiltercombined,addAddressPost,cartGet,checkoutpage,
     generateInvoice,wishlistget,addTocartwishlist,wishlistToggle,wishlistRemove,availableCoupons,removecart,orderCancelPageGet,orderConfirmedPage,
     orderView,placeOrderGet,placeOrderPost,paymentFailedPost,orderConfirmedPage,yourOrders,addAddressGet,addAddressSubmit,addAddressget,addAddresspost,
-    orderDetailsGet,orderdetailsGet,cancelOrderGet,returnOrderGet,orderCancelConfirmPost,womenFilterGet,updateUserDetails,userMenPost,changePassword
+    orderDetailsGet,orderdetailsGet,cancelOrderGet,returnOrderGet,orderCancelConfirmPost,womenFilterGet,updateUserDetails,userMenPost,changePassword,rootget
 }
