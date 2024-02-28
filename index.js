@@ -94,7 +94,7 @@ app.get('*', (req, res) => {
 //       return res.status(200).send('File uploaded!');
 //   });
 // });
-app.listen(3000,() => {
-    console.log(`listening to port localhost:${process.env.PORT}`);});
-// app.listen(process.env.PORT,() => {
+// app.listen(3000,() => {
 //     console.log(`listening to port localhost:${process.env.PORT}`);});
+app.listen(process.env.PORT,() => {
+    console.log(`listening to port localhost:${process.env.PORT}`);});
