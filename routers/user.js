@@ -36,7 +36,8 @@ const checkSessionAndBlocked = async(req, res, next) => {
     } else {
         res.redirect("/user/login");
     }
-};
+}
+router.get('/',usercontroller.rootget)
 router.get("/user/login", usercontroller.loginGet);
 router.post("/user/login", usercontroller.loginPost);
 router.get("/user/signup", usercontroller.signupGet);
